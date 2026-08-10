@@ -1,0 +1,88 @@
+========================================================
+TEX-PHARM INC - COMPLETE PROJECT (Backend + Frontend + Admin Panel)
+========================================================
+
+--------------------------------------------------------
+STEP 1 - BACKEND DEPENDENCIES INSTALL KARO
+--------------------------------------------------------
+Terminal kholo:
+   cd tex-pharm-backend
+   npm install
+
+--------------------------------------------------------
+STEP 2 - .env FILE CHECK KARO
+--------------------------------------------------------
+Folder: tex-pharm-backend/.env
+
+Ye already MongoDB Atlas connection string ke saath aati hai, lekin
+apni khud ki database use karna chaho to:
+1. https://www.mongodb.com/cloud/atlas/register par free account banao
+2. "Create a Free Cluster" (M0 Free tier)
+3. Database user banao (username + password)
+4. "Network Access" mein "Allow access from anywhere" (0.0.0.0/0) add karo
+5. "Connect" > "Drivers" se connection string copy karke MONGODB_URI mein daal do
+
+Zaroori: BANK_ACCOUNT_NUMBER line mein apna real Bank Alfalah account
+number daalo — ye customers ko checkout aur confirmation email mein dikhta hai.
+
+Recommended: EMAIL_USER / EMAIL_PASS mein apna Gmail + App Password daalo
+taake order confirmation emails bhej sakein (optional, na dena ho to email
+bhejna fail ho jayega lekin order phir bhi ban jayega).
+
+--------------------------------------------------------
+STEP 3 - RUN KARO
+--------------------------------------------------------
+Mac / Linux:
+   cd tex-pharm-backend
+   ./START.sh
+
+Windows:
+   tex-pharm-backend folder kholo
+   START.bat par double-click karo
+
+Ye script khud:
+  - admin account bana degi (.env mein di gayi email/password se)
+  - server start kar degi (http://localhost:5000)
+
+Terminal mein admin ki email/password print hogi - wahi use karke
+admin.html se login karna.
+
+--------------------------------------------------------
+STEP 4 - ADMIN PANEL KHOLO
+--------------------------------------------------------
+"admin.html" file ko seedha browser mein double-click karke kholo
+(ya kisi bhi live-server se serve karo). Login karo, aur pehle
+products add karo (Products tab > Add Product) taake site par
+kuch dikhe.
+
+--------------------------------------------------------
+STEP 5 - WEBSITE DEKHO
+--------------------------------------------------------
+"index.html" (aur baaki pages) bhi seedha browser mein khul jayengi.
+Order placement ab real backend se connected hai — checkout se order
+place karo to woh MongoDB mein save hoga aur admin panel mein turant
+dikhega.
+
+--------------------------------------------------------
+IS BAAR KYA FIX HUA (changelog)
+--------------------------------------------------------
+- Checkout page pehle sirf localStorage mein fake order save karta tha,
+  backend ko kabhi call nahi karta tha — ab real order backend/MongoDB
+  mein save hota hai (payment screenshot ke saath).
+- Order model mein paymentMethod "bank" allow nahi tha jabke poora
+  flow bank transfer ke liye bana tha — is wajah se har order fail ho
+  jata — fix kar diya.
+- profile.html pehle khali/adhoori copy-paste file thi — ab real
+  profile page hai (details edit, password change, order history).
+- product.html mein hardcoded demo products hata diye — ab sirf
+  real backend products dikhte hain.
+- Root folder mein purani duplicate/unused app.js, server.js, api.js,
+  auth.js, order.js, redux.js files thi jo kahin use nahi hoti thi —
+  hata di gayi.
+- navbar.html / footer.html unused files thi jinme ek broken
+  newsletter feature tha (/api/subscribe jo exist hi nahi karta tha) —
+  hata di gayi.
+- Stripe/PayPal ka dead/unused code hata diya (payments sirf manual
+  Bank Alfalah transfer se ho rahe hain).
+- nodemailer ko latest secure version par upgrade kiya (purane version
+  mein security vulnerabilities thi).

@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Tex-Pharm Inc</title>
+    <link rel="icon" href="logo.png" type="image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ALL CSS ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #eef4ff; 
+            color: #1a2a4a; 
+            transition: background 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+        
+        /* ===== DARK MODE ===== */
+        body.dark-mode { 
+            background: #12182a; 
+            color: #e8edf5; 
+        }
+        body.dark-mode .navbar { background: linear-gradient(135deg, #1a3050, #0d2040) !important; }
+        body.dark-mode .navbar .logo a { color: #d0e4ff; }
+        body.dark-mode .navbar .logo a i { color: #6ea8fe; }
+        body.dark-mode .navbar .logo a span { color: #6ea8fe; }
+        body.dark-mode .nav-links li a { color: rgba(200, 215, 240, 0.9); }
+        body.dark-mode .nav-links li a:hover { background: rgba(100, 150, 255, 0.15); color: white; }
+        body.dark-mode .dark-toggle-nav { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.05); }
+        body.dark-mode .dark-toggle-nav .toggle-text { color: rgba(200, 215, 240, 0.9); }
+        body.dark-mode .user-avatar-wrapper .user-name { color: #d0e4ff; }
+        body.dark-mode .user-avatar-circle { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+        body.dark-mode .dropdown-menu { background: #1e2a4a; box-shadow: 0 10px 50px rgba(0,0,0,0.4); }
+        body.dark-mode .dropdown-avatar-circle { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+        body.dark-mode .dropdown-info h4 { color: #d0e4ff; }
+        body.dark-mode .dropdown-item { color: #e8edf5; }
+        body.dark-mode .dropdown-item:hover { background: #0a1a30; color: #6ea8fe; }
+        body.dark-mode .dropdown-item:hover i { color: #6ea8fe; }
+        body.dark-mode .dropdown-divider { background: #2a3a5a; }
+        body.dark-mode .footer { background: linear-gradient(135deg, #1a3050, #0d2040) !important; color: #d0e4ff; }
+        body.dark-mode .footer-section h3 { color: #c0d4f0; }
+        body.dark-mode .footer-section p { color: #a8b8d8; }
+        body.dark-mode .footer-section ul li a { color: rgba(200, 215, 240, 0.8); }
+        body.dark-mode .footer-section ul li a:hover { color: #ff6b35; }
+        body.dark-mode .social-links a { background: rgba(255, 255, 255, 0.08); color: #c0d4f0; }
+        body.dark-mode .footer-bottom { border-top-color: rgba(255, 255, 255, 0.08); color: rgba(200, 215, 240, 0.4); }
+        body.dark-mode .toggle-track { background: rgba(255, 255, 255, 0.1); }
+        body.dark-mode .hamburger span { background: #c0d4f0; }
+        body.dark-mode .intro-card { background: #1e2a4a; }
+        body.dark-mode .intro-card h2 { color: #c0d4f0; }
+        body.dark-mode .intro-card p { color: #a8b8d8; }
+        body.dark-mode .mv-card { background: #1e2a4a; }
+        body.dark-mode .mv-card p { color: #a8b8d8; }
+        body.dark-mode .value-card { background: #1e2a4a; }
+        body.dark-mode .value-card h4 { color: #c0d4f0; }
+        body.dark-mode .value-card p { color: #a8b8d8; }
+        body.dark-mode .team-card { background: #1e2a4a; }
+        body.dark-mode .team-card .team-info h4 { color: #c0d4f0; }
+        body.dark-mode .team-card .team-info p { color: #a8b8d8; }
+        body.dark-mode .timeline-section { background: #1e2a4a; }
+        body.dark-mode .timeline-section h2 { color: #c0d4f0; }
+        body.dark-mode .timeline-item .year { color: #6ea8fe; }
+        body.dark-mode .timeline-item h4 { color: #e8edf5; }
+        body.dark-mode .timeline-item p { color: #a8b8d8; }
+        body.dark-mode .stats-section { background: #0a1a30; }
+        body.dark-mode .cta-section { background: linear-gradient(135deg, #0a1a30, #16213e); }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important;
+            padding: 0 25px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9998;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(11, 94, 215, 0.1);
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled { height: 60px; }
+
+        .logo a {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0a2a4a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .logo a i { font-size: 1.4rem; color: #0a2a4a; }
+        .logo a span { color: #0a2a4a; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            list-style: none;
+        }
+        .nav-links li a {
+            color: #0a2a4a;
+            text-decoration: none;
+            padding: 5px 12px;
+            font-weight: 500;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            background: rgba(255, 255, 255, 0.35);
+            color: #003366;
+        }
+
+        .nav-cart { position: relative; }
+        .cart-badge {
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            padding: 1px 6px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            position: absolute;
+            top: -4px;
+            right: -6px;
+        }
+
+        .dark-toggle-nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 8px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50px;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+        .dark-toggle-nav:hover { background: rgba(255, 255, 255, 0.4); }
+        .dark-toggle-nav .toggle-icon { font-size: 0.9rem; }
+        .dark-toggle-nav .toggle-text {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: #0a2a4a;
+        }
+        .toggle-track {
+            position: relative;
+            width: 30px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 8px;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .toggle-track.active { background: #ff6b35; }
+        .toggle-track .toggle-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        .toggle-track.active .toggle-thumb { transform: translateX(14px); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .hamburger span {
+            width: 22px;
+            height: 2.5px;
+            background: #0a2a4a;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+        /* ===== USER DROPDOWN - ONLY PROFILE & LOGOUT ===== */
+        .nav-user { position: relative; margin-left: 5px; }
+        .user-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .user-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .user-avatar-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0a2a4a;
+        }
+        .user-avatar-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .user-btn:hover .user-avatar-circle {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(2,44,107,0.3);
+        }
+        .user-avatar-wrapper .user-name { font-weight: 600; font-size: 0.9rem; color: #0a2a4a; }
+        .user-avatar-wrapper .dropdown-arrow { font-size: 0.7rem; color: #8899bb; transition: transform 0.3s; }
+        .user-btn.active .dropdown-arrow { transform: rotate(180deg); }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 280px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(11, 94, 215, 0.15);
+            padding: 10px 0;
+            margin-top: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            border: 1px solid rgba(176, 208, 232, 0.3);
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-header {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, #dce8ff, #c8dcff);
+            margin: 0 0 6px 0;
+            border-radius: 12px 12px 0 0;
+        }
+        .dropdown-avatar-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+        .dropdown-info h4 { font-size: 0.95rem; font-weight: 600; color: #022c6b; }
+        .dropdown-info p { font-size: 0.8rem; color: #6688aa; margin-top: 2px; }
+
+        .dropdown-divider { height: 1px; background: linear-gradient(to right, #b0d0e8, transparent); margin: 6px 16px; }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: #1a2a4a;
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin: 2px 8px;
+            border-radius: 10px;
+        }
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #dce8ff, #c8dcff);
+            color: #022c6b;
+        }
+        .dropdown-item i { width: 22px; color: #6688aa; font-size: 1rem; }
+        .dropdown-item:hover i { color: #022c6b; }
+
+        .dropdown-item.logout-item { color: #dc3545; margin-top: 4px; }
+        .dropdown-item.logout-item i { color: #dc3545; }
+        .dropdown-item.logout-item:hover { background: #fee; color: #dc3545; }
+        .dropdown-item.logout-item:hover i { color: #dc3545; }
+
+        .dropdown-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9998;
+        }
+        .dropdown-overlay.show { display: block; }
+
+        /* ===== PAGE TITLE ===== */
+        .page-title {
+            background: linear-gradient(135deg, #d0e1ff, #a4c6fc);
+            color: #022c6b;
+            padding: 80px 20px 70px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+
+        }
+        .page-title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.05)' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'/%3E%3C/svg%3E") no-repeat bottom;
+            background-size: cover;
+            opacity: 0.2;
+        }
+        .page-title h1 {
+            position: relative;
+            z-index: 2;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #022c6b;
+            margin-bottom: 10px;
+        }
+        .page-title h1 i { margin-right: 15px; }
+        .page-title p {
+            position: relative;
+            z-index: 2;
+            font-size: 1rem;
+            color: #1e3a66;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        .page-title .breadcrumb {
+            position: relative;
+            z-index: 2;
+            font-size: 0.85rem;
+            color: #1e3a66;
+            margin-bottom: 15px;
+        }
+        .page-title .breadcrumb a { color: #022c6b; text-decoration: none; }
+        .page-title .breadcrumb a:hover { text-decoration: underline; }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-section {
+            max-width: 1200px;
+            margin: -30px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* ===== INTRO CARD ===== */
+        .intro-card {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .intro-card .badge-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .intro-card .badge-row span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(2,44,107,0.08);
+            padding: 5px 18px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: #022c6b;
+            font-weight: 500;
+        }
+        .intro-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #022c6b;
+            margin-bottom: 15px;
+        }
+        .intro-card p {
+            font-size: 0.98rem;
+            color: #555;
+            line-height: 1.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ===== MISSION & VISION ===== */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .mv-card {
+            background: white;
+            padding: 35px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .mv-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #022c6b, #ff6b35);
+        }
+        .mv-card:hover { transform: translateY(-6px); box-shadow: 0 15px 45px rgba(0,0,0,0.12); }
+        .mv-card .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+        }
+        .mv-card .icon-circle.mission {
+            background: linear-gradient(135deg, rgba(2,44,107,0.1), rgba(2,44,107,0.2));
+            color: #022c6b;
+        }
+        .mv-card .icon-circle.vision {
+            background: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(255,107,53,0.2));
+            color: #ff6b35;
+        }
+        .mv-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+        .mv-card h3.mission-title { color: #022c6b; }
+        .mv-card h3.vision-title { color: #ff6b35; }
+        .mv-card p { color: #666; font-size: 0.92rem; line-height: 1.8; }
+
+        /* ===== VALUES ===== */
+        .values-section {
+            background: linear-gradient(135deg, #f0f4ff, #e8edf5);
+            padding: 50px 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        .values-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #022c6b;
+            margin-bottom: 10px;
+        }
+        .values-section .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .value-card {
+            background: white;
+            padding: 25px 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+        .value-card:hover { transform: translateY(-5px); box-shadow: 0 12px 35px rgba(0,0,0,0.12); }
+        .value-card .value-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(2,44,107,0.08), rgba(255,107,53,0.08));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 1.4rem;
+            color: #022c6b;
+            transition: all 0.3s;
+        }
+        .value-card:hover .value-icon {
+            background: #022c6b;
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .value-card h4 { font-size: 1rem; font-weight: 600; color: #022c6b; margin-bottom: 6px; }
+        .value-card p { font-size: 0.85rem; color: #666; line-height: 1.6; }
+
+        /* ===== TEAM ===== */
+        .team-section { margin-bottom: 40px; }
+        .team-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #022c6b;
+            margin-bottom: 10px;
+        }
+        .team-section .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .team-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .team-card:hover { transform: translateY(-6px); box-shadow: 0 15px 45px rgba(0,0,0,0.12); }
+        .team-card .team-image { height: 180px; overflow: hidden; }
+        .team-card .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s;
+        }
+        .team-card:hover .team-image img { transform: scale(1.05); }
+        .team-card .team-info { padding: 20px 15px 25px; }
+        .team-card .team-info h4 { font-size: 1.1rem; font-weight: 700; color: #022c6b; margin-bottom: 2px; }
+        .team-card .team-info .designation { color: #ff6b35; font-weight: 500; font-size: 0.85rem; margin-bottom: 6px; }
+        .team-card .team-info p { color: #666; font-size: 0.85rem; line-height: 1.6; }
+
+        /* ===== TIMELINE ===== */
+        .timeline-section {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+        }
+        .timeline-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #022c6b;
+            margin-bottom: 10px;
+        }
+        .timeline-section .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            position: relative;
+            padding-left: 35px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #022c6b, #ff6b35);
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            padding: 15px 0 15px 30px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 20px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #022c6b;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #022c6b;
+        }
+        .timeline-item .year { font-size: 1.1rem; font-weight: 800; color: #022c6b; }
+        .timeline-item h4 { font-size: 1rem; font-weight: 600; color: #333; }
+        .timeline-item p { color: #666; font-size: 0.9rem; line-height: 1.6; }
+
+        /* ===== STATS ===== */
+        .stats-section {
+            background: #022c6b;
+            padding: 50px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 25px;
+            text-align: center;
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 3px; }
+        .stat-card p { font-size: 0.9rem; opacity: 0.9; font-weight: 300; }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            color: white;
+            text-align: center;
+            padding: 50px 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        .cta-section h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
+        .cta-section p { font-size: 0.98rem; opacity: 0.9; max-width: 500px; margin: 0 auto 20px; }
+        .cta-section .cta-btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background: white;
+            color: #022c6b;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        .cta-section .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important;
+            color: #0a2a4a;
+            padding: 40px 25px 15px;
+            margin-top: 0;
+            border-top: 3px solid rgba(255, 255, 255, 0.3);
+            transition: background 0.3s, color 0.3s;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        .footer-section h3 {
+            color: #0a2a4a;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .footer-section h3::after {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #ff6b35;
+            margin-top: 5px;
+            border-radius: 2px;
+        }
+        .footer-section p { color: #0a2a4a; font-size: 0.85rem; line-height: 1.6; }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 6px; }
+        .footer-section ul li a {
+            color: #0a2a4a;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .footer-section ul li a:hover { color: #ff6b35; padding-left: 4px; }
+        .footer-section ul li a i { width: 16px; color: #ff6b35; }
+        .social-links {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: #0a2a4a;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .social-links a:hover {
+            background: #ff6b35;
+            color: white;
+            transform: translateY(-3px) scale(1.1);
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(10, 42, 74, 0.15);
+            padding-top: 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(10, 42, 74, 0.6);
+        }
+        .footer-bottom a { color: #ff6b35; text-decoration: none; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .page-title h1 { font-size: 2rem; }
+            .intro-card { padding: 35px 25px; }
+            .mission-vision { grid-template-columns: 1fr; }
+            .values-section { padding: 35px 25px; }
+            .timeline-section { padding: 35px 25px; }
+            .team-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .page-title { padding: 60px 15px 50px;  }
+            .page-title h1 { font-size: 1.8rem; }
+            .intro-card h2 { font-size: 1.5rem; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 65px;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important;
+                padding: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+                z-index: 9997;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links li { width: 100%; }
+            .nav-links li a {
+                color: #0a2a4a !important;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+            }
+            body.dark-mode .nav-links li a { color: rgba(200, 215, 240, 0.9) !important; }
+            .hamburger { display: flex; }
+            .dark-toggle-nav {
+                margin-left: 0;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.2);
+                padding: 5px 12px;
+            }
+            .dark-toggle-nav .toggle-text { color: #0a2a4a !important; }
+            body.dark-mode .dark-toggle-nav .toggle-text { color: rgba(200, 215, 240, 0.9) !important; }
+            .user-avatar-wrapper .user-name { display: none; }
+            .user-avatar-circle { width: 32px; height: 32px; font-size: 0.75rem; }
+            .dropdown-menu { min-width: 250px; right: -10px; }
+            .team-grid { grid-template-columns: 1fr 1fr; max-width: 500px; }
+            .stats-section { grid-template-columns: repeat(2, 1fr); padding: 30px 15px; }
+            .stat-card h2 { font-size: 2rem; }
+            .cta-section { padding: 35px 20px; }
+            .cta-section h2 { font-size: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 { font-size: 1.5rem; }
+            .intro-card { padding: 25px 15px; }
+            .intro-card h2 { font-size: 1.3rem; }
+            .values-section { padding: 25px 15px; }
+            .timeline-section { padding: 25px 15px; }
+            .team-grid { grid-template-columns: 1fr; max-width: 350px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .timeline { padding-left: 25px; }
+            .timeline-item { padding-left: 20px; }
+            .timeline-item::before { left: -20px; width: 12px; height: 12px; }
+            .timeline::before { left: 5px; }
+            .stats-section { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .stat-card h2 { font-size: 1.6rem; }
+            .user-avatar-wrapper .user-name { display: none; }
+            .user-avatar-circle { width: 28px; height: 28px; font-size: 0.65rem; }
+            .dropdown-menu { min-width: 220px; right: -15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="mainNavbar">
+        <div class="logo">
+            <a href="index.html"><i class="fas fa-industry"></i> Tex<span>Pharm</span></a>
+        </div>
+
+        <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+            <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+            <li><a href="product.html"><i class="fas fa-box"></i> Product</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            <li class="nav-cart"><a href="checkout.html"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-badge" id="cartCount">0</span></a></li>
+            
+            <!-- ===== USER DROPDOWN - ONLY PROFILE & LOGOUT ===== -->
+            <li class="nav-user">
+                <div class="user-dropdown">
+                    <button class="user-btn" onclick="toggleDropdown()">
+                        <div class="user-avatar-wrapper">
+                            <div class="user-avatar-circle" id="userAvatarCircle">
+                                <span id="userInitials">U</span>
+                            </div>
+                            <span class="user-name" id="userNameDisplay">User</span>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </div>
+                    </button>
+                    
+                    <div class="dropdown-menu" id="userDropdown">
+                        <div class="dropdown-header">
+                            <div class="dropdown-avatar-circle" id="dropdownAvatarCircle">
+                                <span id="dropdownInitials">U</span>
+                            </div>
+                            <div class="dropdown-info">
+                                <h4 id="dropdownName">User</h4>
+                                <p id="dropdownEmail">user@email.com</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item logout-item" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Dark Mode Toggle -->
+            <li>
+                <div class="dark-toggle-nav" onclick="toggleDarkMode()">
+                    <span class="toggle-icon" id="toggleIcon">🌙</span>
+                    <span class="toggle-text" id="toggleText">Dark</span>
+                    <div class="toggle-track" id="toggleTrack">
+                        <div class="toggle-thumb"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ===== PAGE TITLE ===== -->
+    <section class="page-title">
+        <div class="breadcrumb">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a> / About Us
+        </div>
+        <h1><i class="fas fa-info-circle"></i> About Us</h1>
+        <p>Discover the story behind Tex-Pharm Inc — our legacy, values, and vision for the future</p>
+    </section>
+
+    <!-- ===== ABOUT SECTION ===== -->
+    <div class="about-section">
+
+        <!-- INTRO CARD -->
+        <div class="intro-card">
+            <div class="badge-row">
+                <span><i class="fas fa-check-circle"></i> 25+ Years Excellence</span>
+                <span><i class="fas fa-award"></i> Industry Certified</span>
+                <span><i class="fas fa-globe-asia"></i> Global Presence</span>
+                <span><i class="fas fa-leaf"></i> Eco-Friendly</span>
+            </div>
+            <h2>Leading the Way in Textile &amp; Chemical Solutions</h2>
+            <p>
+                <strong>Tex-Pharm Inc</strong> is a premier provider of advanced textile testing instruments, 
+                specialized chemical processing solutions, and expert industrial consultancies, established in 2010. 
+                We combine cutting-edge technology with sustainable engineering to deliver premium-quality laboratory 
+                equipment, high-performance dyes, and specialized industrial chemicals to clients across the globe.
+            </p>
+        </div>
+
+        <!-- MISSION & VISION -->
+        <div class="mission-vision">
+            <div class="mv-card">
+                <div class="icon-circle mission"><i class="fas fa-bullseye"></i></div>
+                <h3 class="mission-title">Our Mission</h3>
+                <p>
+                    To provide innovative, sustainable, and cost-effective textile instruments and chemical solutions
+                    that empower industries to achieve operational excellence while minimizing environmental impact.
+                </p>
+            </div>
+            <div class="mv-card">
+                <div class="icon-circle vision"><i class="fas fa-eye"></i></div>
+                <h3 class="vision-title">Our Vision</h3>
+                <p>
+                    To be a global leader in textile instruments and chemical innovation, setting new standards for
+                    quality, sustainability, and customer satisfaction.
+                </p>
+            </div>
+        </div>
+
+        <!-- VALUES -->
+        <div class="values-section">
+            <h2><i class="fas fa-gem"></i> Core Values</h2>
+            <p class="subtitle">The principles that guide everything we do</p>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Quality First</h4>
+                    <p>Uncompromising quality standards in every product and service.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-leaf"></i></div>
+                    <h4>Sustainability</h4>
+                    <p>Eco-friendly processes and materials for a greener future.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-handshake"></i></div>
+                    <h4>Integrity</h4>
+                    <p>Honest and transparent business practices with all stakeholders.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h4>Innovation</h4>
+                    <p>Continuous research and development for cutting-edge solutions.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-users"></i></div>
+                    <h4>Teamwork</h4>
+                    <p>Collaborative culture that drives success and growth.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h4>Global Mindset</h4>
+                    <p>Embracing diversity and serving clients across borders.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEADERSHIP TEAM -->
+        <div class="team-section">
+            <h2><i class="fas fa-user-tie"></i> Leadership Team</h2>
+            <p class="subtitle">Meet the experts driving our success</p>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop&crop=center" alt="CEO">
+                    </div>
+                    <div class="team-info">
+                        <h4>Jafar Hussain</h4>
+                        <div class="designation">CEO &amp; Founder</div>
+                        <p>25+ years of experience in textile labs and chemical processing.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop&crop=center" alt="CTO">
+                    </div>
+                    <div class="team-info">
+                        <h4>M.Shahbaz</h4>
+                        <div class="designation">Chief Technology Officer</div>
+                        <p>To provide Technical Services.</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-image">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&h=300&fit=crop&crop=center" alt="COO">
+                    </div>
+                    <div class="team-info">
+                        <h4>Safdar Ali</h4>
+                        <div class="designation">Chief Operating Officer</div>
+                        <p>Operations expert with a track record of optimizing large-scale production.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline-section">
+            <h2><i class="fas fa-history"></i> Our Journey</h2>
+            <p class="subtitle">Milestones that shaped our company</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="year">2010</div>
+                    <h4>Foundation of Tex-Pharm Inc</h4>
+                    <p>Company established in Faisalabad, Pakistan with a vision to revolutionize textile manufacturing.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2013</div>
+                    <h4>First International Export</h4>
+                    <p>Expanded operations to serve clients in the Middle East and Southeast Asia.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2016</div>
+                    <h4>Chemical Division Launch</h4>
+                    <p>Introduced a dedicated chemical processing unit for dyes, pigments, and textile auxiliaries.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2019</div>
+                    <h4>ISO &amp; Eco-Certification</h4>
+                    <p>Achieved ISO 9001 and ISO 14001 certifications for quality and environmental management.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2022</div>
+                    <h4>Global Expansion</h4>
+                    <p>Reached 50+ countries with a diverse portfolio of textile and chemical products.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="year">2024</div>
+                    <h4>Innovation &amp; Sustainability</h4>
+                    <p>Launched new eco-friendly product lines and advanced R&D facilities.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-section">
+            <div class="stat-card"><h2>25+</h2><p>Years Experience</p></div>
+            <div class="stat-card"><h2>150+</h2><p>Skilled Employees</p></div>
+            <div class="stat-card"><h2>350+</h2><p>Products Manufactured</p></div>
+            <div class="stat-card"><h2>50+</h2><p>Countries Served</p></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Ready to Partner With Us?</h2>
+            <p>Let's work together to create innovative solutions for your textile and chemical needs.</p>
+            <a href="contact.html" class="cta-btn">Get in Touch <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-industry"></i> Tex-Pharm Inc</h3>
+                <p>Premium textile manufacturing and chemical processing solutions since 2010. Trusted by industries worldwide.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fas fa-link"></i> Quick Links</h3>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="product.html"><i class="fas fa-chevron-right"></i> Product</a></li>
+                    <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fas fa-address-card"></i> Contact Info</h3>
+                <ul>
+                    <li><a href="tel:+923006694285"><i class="fas fa-phone"></i> +92 300 6694285</a></li>
+                    <li><a href="mailto:info@tex-pharm.com"><i class="fas fa-envelope"></i> info@tex-pharm.com</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Faisalabad, Pakistan</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 <a href="index.html">Tex-Pharm Inc</a>. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ===== AVATAR FUNCTIONS =====
+        function getUserInitials(name) {
+            if (!name) return 'U';
+            const parts = name.trim().split(' ');
+            if (parts.length >= 2) {
+                return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+            }
+            return name.substring(0, 2).toUpperCase();
+        }
+
+        function getAvatarColor(email) {
+            const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'];
+            let hash = 0;
+            for (let i = 0; i < email.length; i++) {
+                hash = email.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        function updateNavbarUser(user) {
+            if (!user) return;
+            const initials = getUserInitials(user.name);
+            const color = getAvatarColor(user.email);
+            
+            const navCircle = document.getElementById('userAvatarCircle');
+            navCircle.style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+            document.getElementById('userInitials').textContent = initials;
+            document.getElementById('userNameDisplay').textContent = user.name;
+            
+            const dropCircle = document.getElementById('dropdownAvatarCircle');
+            dropCircle.style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+            document.getElementById('dropdownInitials').textContent = initials;
+            document.getElementById('dropdownName').textContent = user.name;
+            document.getElementById('dropdownEmail').textContent = user.email;
+        }
+
+        // ===== DARK MODE =====
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.getElementById('toggleIcon');
+            const text = document.getElementById('toggleText');
+            const track = document.getElementById('toggleTrack');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.textContent = '☀️';
+                text.textContent = 'Light';
+                track.classList.add('active');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.textContent = '🌙';
+                text.textContent = 'Dark';
+                track.classList.remove('active');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('toggleIcon').textContent = '☀️';
+            document.getElementById('toggleText').textContent = 'Light';
+            document.getElementById('toggleTrack').classList.add('active');
+        }
+
+        // ===== MOBILE MENU =====
+        function toggleMobileMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+            document.getElementById('hamburgerBtn').classList.toggle('active');
+        }
+
+        // ===== NAVBAR SCROLL EFFECT =====
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNavbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== CLOSE MENU ON LINK CLICK =====
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+                document.getElementById('hamburgerBtn').classList.remove('active');
+            });
+        });
+
+        // ===== USER DROPDOWN =====
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            const btn = document.querySelector('.user-btn');
+            const overlay = document.getElementById('dropdownOverlay');
+            
+            dropdown.classList.toggle('show');
+            btn.classList.toggle('active');
+            
+            if (dropdown.classList.contains('show')) {
+                if (!overlay) {
+                    const newOverlay = document.createElement('div');
+                    newOverlay.id = 'dropdownOverlay';
+                    newOverlay.className = 'dropdown-overlay show';
+                    newOverlay.onclick = closeDropdown;
+                    document.body.appendChild(newOverlay);
+                } else {
+                    overlay.classList.add('show');
+                }
+            } else {
+                if (overlay) overlay.classList.remove('show');
+            }
+        }
+
+        function closeDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            const btn = document.querySelector('.user-btn');
+            const overlay = document.getElementById('dropdownOverlay');
+            
+            dropdown.classList.remove('show');
+            btn.classList.remove('active');
+            if (overlay) overlay.classList.remove('show');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeDropdown();
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.user-dropdown')) {
+                closeDropdown();
+            }
+        });
+
+        // ===== HANDLE LOGOUT =====
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('user');
+                localStorage.removeItem('token');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // ===== UPDATE CART BADGE =====
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+            const badge = document.getElementById('cartCount');
+            if (badge) badge.textContent = count;
+        }
+
+        // ===== CHECK LOGIN =====
+        function checkLogin() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            const token = localStorage.getItem('token');
+            if (user && token) {
+                updateNavbarUser(user);
+            }
+        }
+
+        // ===== INIT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartBadge();
+            checkLogin();
+        });
+    </script>
+
+</body>
+</html>

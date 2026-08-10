@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tex-Pharm Inc - Admin Panel</title>
+    <link rel="icon" href="logo.png" type="image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ALL CSS ===== */
+        :root{
+            --blue1:#b0d0e8; --blue2:#7ab0d6; --navy:#0a2a4a; --navy2:#1a2a4a;
+            --orange:#ff6b35; --bg:#eef4ff; --card:#ffffff; --border:#dbe6f5;
+            --text:#1a2a4a; --muted:#5a6f8f; --green:#1ba965; --red:#e6483d; --amber:#e69819;
+        }
+        body.dark-mode{
+            --bg:#12182a; --card:#1e2a4a; --border:#2a3a5a; --text:#e8edf5; --muted:#8899bb;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;}
+        a{text-decoration:none;color:inherit;}
+        ::-webkit-scrollbar{width:8px;height:8px;}
+        ::-webkit-scrollbar-thumb{background:var(--blue2);border-radius:10px;}
+
+        /* ===== LOGIN SCREEN ===== */
+        #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#cbe3fc,#adcbf7);padding:20px;}
+        body.dark-mode #loginScreen{background:linear-gradient(135deg,#121824,#1a233a);}
+        .login-card{background:var(--card);width:100%;max-width:400px;border-radius:16px;padding:40px 32px;box-shadow:0 20px 60px rgba(11,94,215,.15);}
+        .login-card .logo-row{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:6px;}
+        .login-card .logo-row i{font-size:2rem;color:var(--orange);}
+        .login-card h1{font-size:1.4rem;font-weight:800;text-align:center;color:var(--navy);}
+        body.dark-mode .login-card h1{color:#f0f4f8;}
+        .login-card p.sub{text-align:center;color:var(--muted);font-size:.85rem;margin:6px 0 28px;}
+        .form-group{margin-bottom:18px;}
+        .form-group label{display:block;font-size:.8rem;font-weight:600;margin-bottom:6px;color:var(--muted);}
+        .form-group input,.form-group select,.form-group textarea{
+            width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;
+            font-size:.9rem;background:var(--bg);color:var(--text);outline:none;transition:border .2s;
+        }
+        .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue2);}
+        .form-row{display:flex;gap:14px;}
+        .form-row .form-group{flex:1;}
+        .btn{border:none;border-radius:8px;padding:11px 20px;font-family:inherit;font-weight:600;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;justify-content:center;transition:all .2s;}
+        .btn-primary{background:linear-gradient(135deg,var(--orange),#ff8c5a);color:#fff;width:100%;}
+        .btn-primary:hover{opacity:.92;transform:translateY(-1px);}
+        .btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--text);}
+        .btn-outline:hover{border-color:var(--blue2);}
+        .btn-danger{background:#fdeceb;color:var(--red);}
+        .btn-danger:hover{background:var(--red);color:#fff;}
+        .btn-sm{padding:6px 12px;font-size:.75rem;}
+        #loginError{background:#fdeceb;color:var(--red);padding:10px 14px;border-radius:8px;font-size:.8rem;margin-bottom:16px;display:none;}
+        .login-hint{margin-top:18px;text-align:center;font-size:.72rem;color:var(--muted);}
+        /* ===== REMEMBER ME CHECKBOX ===== */
+        .remember-row{display:flex;align-items:center;gap:8px;margin:-8px 0 16px;}
+        .remember-row input{width:16px;height:16px;accent-color:var(--orange);cursor:pointer;}
+        .remember-row label{font-size:.8rem;color:var(--muted);cursor:pointer;}
+
+        /* ===== APP SHELL ===== */
+        #app{display:none;min-height:100vh;}
+        .sidebar{
+            width:250px;background:linear-gradient(180deg,#8bbce6,#6aa8d4);position:fixed;top:0;left:0;bottom:0;
+            display:flex;flex-direction:column;z-index:200;transition:transform .3s;
+        }
+        body.dark-mode .sidebar{background:linear-gradient(180deg,#1a3050,#0d1f33);}
+        .sidebar .brand{display:flex;align-items:center;gap:10px;padding:24px 22px;font-weight:800;font-size:1.15rem;color:var(--navy);}
+        body.dark-mode .sidebar .brand{color:#f0f4f8;}
+        .sidebar .brand i{color:var(--orange);font-size:1.4rem;}
+        .sidebar nav{flex:1;padding:10px 14px;}
+        .sidebar nav a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;color:var(--navy);font-weight:500;font-size:.88rem;margin-bottom:4px;transition:all .2s;}
+        body.dark-mode .sidebar nav a{color:#dce8fa;}
+        .sidebar nav a i{width:18px;text-align:center;}
+        .sidebar nav a:hover{background:rgba(255,255,255,.35);}
+        .sidebar nav a.active{background:rgba(255,255,255,.5);color:#003366;font-weight:700;}
+        body.dark-mode .sidebar nav a:hover{background:rgba(255,255,255,.08);}
+        body.dark-mode .sidebar nav a.active{background:rgba(255,255,255,.14);color:#fff;}
+        .sidebar .badge-pill{margin-left:auto;background:var(--orange);color:#fff;font-size:.65rem;font-weight:700;padding:1px 7px;border-radius:20px;}
+        .sidebar .bottom-actions{padding:14px;border-top:1px solid rgba(255,255,255,.25);}
+        .sidebar .bottom-actions button{width:100%;}
+
+        .main{margin-left:250px;min-height:100vh;}
+        .topbar{
+            background:var(--card);border-bottom:1px solid var(--border);padding:16px 28px;
+            display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;
+        }
+        .topbar h2{font-size:1.15rem;font-weight:700;}
+        .topbar .right{display:flex;align-items:center;gap:14px;}
+        #hamburgerAdmin{display:none;background:none;border:none;font-size:1.3rem;color:var(--text);cursor:pointer;}
+        .dark-toggle{display:flex;align-items:center;gap:6px;padding:6px 12px;background:var(--bg);border-radius:50px;cursor:pointer;border:1px solid var(--border);font-size:.8rem;}
+        .admin-chip{display:flex;align-items:center;gap:8px;background:var(--bg);padding:6px 12px 6px 6px;border-radius:50px;}
+        .admin-chip .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--orange),#ff8c5a);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;}
+        .admin-chip span{font-size:.8rem;font-weight:600;}
+
+        .content{padding:26px 28px 60px;}
+        .section{display:none;}
+        .section.active{display:block;animation:fadeIn .25s;}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+        /* ===== STAT CARDS ===== */
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:26px;}
+        .stat-card{background:var(--card);border-radius:14px;padding:20px;border:1px solid var(--border);display:flex;align-items:center;gap:16px;}
+        .stat-card .icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:#fff;flex-shrink:0;}
+        .stat-card .info h3{font-size:1.5rem;font-weight:800;}
+        .stat-card .info p{font-size:.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.3px;}
+
+        .grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;}
+        @media(max-width:1000px){.grid-2{grid-template-columns:1fr;}}
+
+        .panel{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:22px;margin-bottom:20px;}
+        .panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
+        .panel-head h3{font-size:1rem;font-weight:700;}
+
+        /* ===== TOOLBAR ===== */
+        .toolbar{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
+        .search-box{position:relative;flex:1;min-width:200px;}
+        .search-box i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);}
+        .search-box input{width:100%;padding:10px 14px 10px 38px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:.85rem;outline:none;}
+        .toolbar select{padding:10px 14px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:.85rem;}
+
+        /* ===== TABLE ===== */
+        .table-wrap{overflow-x:auto;}
+        table{width:100%;border-collapse:collapse;font-size:.85rem;}
+        thead th{text-align:left;padding:10px 12px;color:var(--muted);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--border);white-space:nowrap;}
+        tbody td{padding:12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+        tbody tr:hover{background:rgba(122,176,214,.06);}
+        .prod-thumb{width:42px;height:42px;border-radius:8px;object-fit:cover;}
+        .cell-name{display:flex;align-items:center;gap:10px;font-weight:600;}
+        .cell-sub{font-size:.72rem;color:var(--muted);font-weight:400;}
+
+        .pill{display:inline-block;padding:4px 11px;border-radius:20px;font-size:.7rem;font-weight:700;text-transform:capitalize;}
+        .pill.green{background:#e3f8ee;color:var(--green);}
+        .pill.red{background:#fdeceb;color:var(--red);}
+        .pill.amber{background:#fdf2e0;color:var(--amber);}
+        .pill.blue{background:#e5f0fb;color:#1e6fbf;}
+        .pill.gray{background:#eef1f5;color:#5a6f8f;}
+        body.dark-mode .pill.green{background:#0f3325;}
+        body.dark-mode .pill.red{background:#3a1815;}
+        body.dark-mode .pill.amber{background:#3a2c0f;}
+        body.dark-mode .pill.blue{background:#132b45;}
+        body.dark-mode .pill.gray{background:#26314a;}
+
+        .row-actions{display:flex;gap:6px;}
+        .icon-btn{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;transition:.2s;}
+        .icon-btn:hover{background:var(--blue2);color:#fff;border-color:var(--blue2);}
+        .icon-btn.danger:hover{background:var(--red);border-color:var(--red);}
+
+        .empty-state{text-align:center;padding:50px 20px;color:var(--muted);}
+        .empty-state i{font-size:2.4rem;margin-bottom:10px;opacity:.5;}
+        .loading-row{text-align:center;padding:30px;color:var(--muted);}
+        select.status-select{padding:6px 10px;border-radius:6px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-family:inherit;font-size:.78rem;}
+
+        /* ===== MODAL ===== */
+        .modal-overlay{position:fixed;inset:0;background:rgba(10,20,40,.5);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;backdrop-filter:blur(2px);}
+        .modal-overlay.show{display:flex;}
+        .modal{background:var(--card);border-radius:16px;width:100%;max-width:560px;max-height:88vh;overflow-y:auto;padding:26px;}
+        .modal.wide{max-width:720px;}
+        .modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+        .modal-head h3{font-size:1.1rem;font-weight:700;}
+        .modal-close{background:var(--bg);border:none;width:32px;height:32px;border-radius:8px;cursor:pointer;color:var(--text);font-size:.9rem;}
+        .modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+        .img-preview{width:100%;height:150px;border-radius:10px;object-fit:cover;background:var(--bg);border:1px dashed var(--border);margin-top:8px;}
+        .checkbox-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
+        .checkbox-row input{width:auto;}
+        .checkbox-row label{margin:0;font-size:.85rem;color:var(--text);}
+
+        .detail-line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.85rem;}
+        .detail-line span:first-child{color:var(--muted);}
+        .order-item-row{display:flex;justify-content:space-between;padding:8px 0;font-size:.83rem;border-bottom:1px dashed var(--border);}
+
+        /* ===== TOAST ===== */
+        .toast-wrap{position:fixed;bottom:24px;right:24px;z-index:2000;display:flex;flex-direction:column;gap:10px;}
+        .toast{background:var(--card);border-left:4px solid var(--green);border-radius:10px;padding:14px 18px;box-shadow:0 10px 30px rgba(0,0,0,.15);font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:10px;min-width:240px;transform:translateX(120%);transition:transform .3s;}
+        .toast.show{transform:translateX(0);}
+        .toast.error{border-left-color:var(--red);}
+        .toast i{font-size:1.1rem;}
+        .toast.success i{color:var(--green);}
+        .toast.error i{color:var(--red);}
+
+        @media(max-width:900px){
+            .sidebar{transform:translateX(-100%);}
+            .sidebar.open{transform:translateX(0);}
+            .main{margin-left:0;}
+            #hamburgerAdmin{display:block;}
+            .content{padding:18px;}
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ LOGIN SCREEN ============ -->
+<div id="loginScreen">
+    <div class="login-card">
+        <div class="logo-row"><i class="fas fa-industry"></i></div>
+        <h1>Tex-Pharm Admin</h1>
+        <p class="sub">Sign in to manage products, orders & customers</p>
+        <div id="loginError"></div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="loginEmail" placeholder="admin@tex-pharm.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="••••••••" required>
+            </div>
+            <!-- ===== REMEMBER ME ===== -->
+            <div class="remember-row">
+                <input type="checkbox" id="rememberMe" checked>
+                <label for="rememberMe">Remember me (stay logged in)</label>
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+        </form>
+        <p class="login-hint">Only accounts with an <b>admin</b> role can access this panel.</p>
+    </div>
+</div>
+
+<!-- ============ ADMIN APP ============ -->
+<div id="app">
+    <aside class="sidebar" id="sidebar">
+        <div class="brand"><i class="fas fa-industry"></i> Tex-Pharm</div>
+        <nav>
+            <a href="#" data-section="dashboard" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            <a href="#" data-section="products"><i class="fas fa-box"></i> Products</a>
+            <a href="#" data-section="orders"><i class="fas fa-shopping-bag"></i> Orders</a>
+            <a href="#" data-section="contacts"><i class="fas fa-envelope"></i> Messages <span class="badge-pill" id="contactBadge" style="display:none;">0</span></a>
+            <a href="#" data-section="users"><i class="fas fa-users"></i> Users</a>
+        </nav>
+        <div class="bottom-actions">
+            <button class="btn btn-outline" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </aside>
+
+    <div class="main">
+        <div class="topbar">
+            <div style="display:flex;align-items:center;gap:14px;">
+                <button id="hamburgerAdmin"><i class="fas fa-bars"></i></button>
+                <h2 id="pageTitle">Dashboard</h2>
+            </div>
+            <div class="right">
+                <div class="dark-toggle" id="darkToggleAdmin"><span id="dtIcon">🌙</span> <span id="dtText">Dark</span></div>
+                <div class="admin-chip"><div class="av" id="adminAvatar">A</div> <span id="adminName">Admin</span></div>
+            </div>
+        </div>
+
+        <div class="content">
+
+            <!-- ===== DASHBOARD ===== -->
+            <section class="section active" id="section-dashboard">
+                <div class="stats-grid" id="statsGrid">
+                    <div class="loading-row">Loading stats...</div>
+                </div>
+                <div class="grid-2">
+                    <div class="panel">
+                        <div class="panel-head"><h3>Recent Orders</h3><a href="#" data-section="orders" style="font-size:.78rem;color:var(--blue2);font-weight:600;">View all →</a></div>
+                        <div class="table-wrap"><table><tbody id="recentOrdersBody"><tr><td class="loading-row">Loading...</td></tr></tbody></table></div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-head"><h3>Recent Messages</h3><a href="#" data-section="contacts" style="font-size:.78rem;color:var(--blue2);font-weight:600;">View all →</a></div>
+                        <div id="recentContactsList"><div class="loading-row">Loading...</div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== PRODUCTS ===== -->
+            <section class="section" id="section-products">
+                <div class="panel">
+                    <div class="panel-head">
+                        <h3>All Products</h3>
+                        <button class="btn btn-primary" id="addProductBtn" style="width:auto;"><i class="fas fa-plus"></i> Add Product</button>
+                    </div>
+                    <div class="toolbar">
+                        <div class="search-box"><i class="fas fa-search"></i><input type="text" id="productSearch" placeholder="Search products by name or SKU..."></div>
+                        <select id="productCategoryFilter">
+                            <option value="all">All Categories</option>
+                            <option value="textile">Textile</option>
+                            <option value="chemical">Chemical</option>
+                            <option value="machinery">Machinery</option>
+                        </select>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="productsBody"><tr><td class="loading-row" colspan="6">Loading products...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== ORDERS ===== -->
+            <section class="section" id="section-orders">
+                <div class="panel">
+                    <div class="panel-head"><h3>All Orders</h3></div>
+                    <div class="toolbar">
+                        <div class="search-box"><i class="fas fa-search"></i><input type="text" id="orderSearch" placeholder="Search by customer name/email..."></div>
+                        <select id="orderStatusFilter">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th></th></tr></thead>
+                            <tbody id="ordersBody"><tr><td class="loading-row" colspan="8">Loading orders...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== CONTACTS ===== -->
+            <section class="section" id="section-contacts">
+                <div class="panel">
+                    <div class="panel-head"><h3>Contact Messages</h3></div>
+                    <div class="toolbar">
+                        <div class="search-box"><i class="fas fa-search"></i><input type="text" id="contactSearch" placeholder="Search by name/email/subject..."></div>
+                        <select id="contactStatusFilter">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="read">Read</option>
+                            <option value="replied">Replied</option>
+                        </select>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Status</th><th>Date</th><th></th></tr></thead>
+                            <tbody id="contactsBody"><tr><td class="loading-row" colspan="6">Loading messages...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== USERS ===== -->
+            <section class="section" id="section-users">
+                <div class="panel">
+                    <div class="panel-head"><h3>All Users</h3></div>
+                    <div class="toolbar">
+                        <div class="search-box"><i class="fas fa-search"></i><input type="text" id="userSearch" placeholder="Search by name/email..."></div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Joined</th><th>Last Login</th><th>Actions</th></tr></thead>
+                            <tbody id="usersBody"><tr><td class="loading-row" colspan="7">Loading users...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<!-- ============ PRODUCT MODAL ============ -->
+<div class="modal-overlay" id="productModalOverlay">
+    <div class="modal">
+        <div class="modal-head"><h3 id="productModalTitle">Add Product</h3><button class="modal-close" onclick="closeModal('productModalOverlay')"><i class="fas fa-times"></i></button></div>
+        <form id="productForm">
+            <input type="hidden" id="productId">
+            <div class="form-group"><label>Product Name *</label><input type="text" id="pName" required></div>
+            <div class="form-row">
+                <div class="form-group"><label>Category *</label>
+                    <select id="pCategory" required>
+                        <option value="textile">Textile</option>
+                        <option value="chemical">Chemical</option>
+                        <option value="machinery">Machinery</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>SKU</label><input type="text" id="pSku" placeholder="Optional"></div>
+            </div>
+            <div class="form-group"><label>Description *</label><textarea id="pDescription" rows="3" required></textarea></div>
+            <div class="form-group"><label>Specification</label><input type="text" id="pSpec" placeholder="e.g. Uses: Yarn, Fabrics"></div>
+            <div class="form-row">
+                <div class="form-group"><label>Price ($) *</label><input type="number" id="pPrice" min="0" step="0.01" required></div>
+                <div class="form-group"><label>Original Price ($)</label><input type="number" id="pOriginalPrice" min="0" step="0.01" placeholder="Optional"></div>
+                <div class="form-group"><label>Stock *</label><input type="number" id="pStock" min="0" required></div>
+            </div>
+            <div class="form-group">
+                <label>Image URL *</label>
+                <input type="text" id="pImage" required placeholder="https://..." oninput="document.getElementById('pImagePreview').src=this.value">
+                <img id="pImagePreview" class="img-preview" src="" alt="preview">
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Badge</label>
+                    <select id="pBadge">
+                        <option value="">None</option>
+                        <option value="bestseller">Best Seller</option>
+                        <option value="new">New</option>
+                        <option value="sale">Sale</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Badge Text</label><input type="text" id="pBadgeText" placeholder="e.g. Best Seller"></div>
+            </div>
+            <div class="checkbox-row"><input type="checkbox" id="pFeatured"><label for="pFeatured">Featured product (show on homepage)</label></div>
+            <div class="checkbox-row"><input type="checkbox" id="pActive" checked><label for="pActive">Active (visible to customers)</label></div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-outline" onclick="closeModal('productModalOverlay')">Cancel</button>
+                <button type="submit" class="btn btn-primary" style="width:auto;"><i class="fas fa-save"></i> Save Product</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ============ ORDER DETAIL MODAL ============ -->
+<div class="modal-overlay" id="orderModalOverlay">
+    <div class="modal wide">
+        <div class="modal-head"><h3>Order Details</h3><button class="modal-close" onclick="closeModal('orderModalOverlay')"><i class="fas fa-times"></i></button></div>
+        <div id="orderModalBody"></div>
+    </div>
+</div>
+
+<!-- ============ CONTACT REPLY MODAL ============ -->
+<div class="modal-overlay" id="contactModalOverlay">
+    <div class="modal">
+        <div class="modal-head"><h3>Message Details</h3><button class="modal-close" onclick="closeModal('contactModalOverlay')"><i class="fas fa-times"></i></button></div>
+        <div id="contactModalBody"></div>
+    </div>
+</div>
+
+<!-- ============ CONFIRM DELETE MODAL ============ -->
+<div class="modal-overlay" id="confirmModalOverlay">
+    <div class="modal" style="max-width:380px;text-align:center;">
+        <i class="fas fa-exclamation-triangle" style="font-size:2rem;color:var(--red);margin-bottom:10px;"></i>
+        <h3 id="confirmTitle">Are you sure?</h3>
+        <p id="confirmText" style="color:var(--muted);font-size:.85rem;margin:10px 0 20px;">This action cannot be undone.</p>
+        <div class="modal-actions" style="justify-content:center;">
+            <button class="btn btn-outline" onclick="closeModal('confirmModalOverlay')">Cancel</button>
+            <button class="btn btn-danger" id="confirmActionBtn">Delete</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+// ============================================
+// CONFIG
+// ============================================
+const API_URL = 'https://bubbly-elegance-production-1dff.up.railway.app/api';
+// ============================================
+// STATE
+// ============================================
+let currentUser = null;
+let token = null;
+let allProducts = [], allOrders = [], allContacts = [], allUsers = [];
+
+// ============================================
+// CHECK SAVED LOGIN
+// ============================================
+function checkSavedLogin() {
+    const savedAdmin = localStorage.getItem('adminSession');
+    if (savedAdmin) {
+        try {
+            const data = JSON.parse(savedAdmin);
+            const now = Date.now();
+            if (now - data.timestamp < 24 * 60 * 60 * 1000) {
+                token = data.token;
+                currentUser = data.user;
+                if (currentUser && currentUser.role === 'admin') {
+                    enterApp();
+                    return true;
+                }
+            } else {
+                localStorage.removeItem('adminSession');
+            }
+        } catch (e) {
+            localStorage.removeItem('adminSession');
+        }
+    }
+    return false;
+}
+
+// ============================================
+// API HELPER
+// ============================================
+async function apiCall(endpoint, method = 'GET', body = null) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) headers['Authorization'] = `Bearer ${token}`;
+    const res = await fetch(`${API_URL}${endpoint}`, {
+        method,
+        headers,
+        body: body ? JSON.stringify(body) : undefined
+    });
+    let data;
+    try { data = await res.json(); } catch { data = {}; }
+    if (res.status === 401) {
+        doLogout();
+        throw new Error('Session expired. Please login again.');
+    }
+    if (!res.ok) throw new Error(data.message || 'Something went wrong');
+    return data;
+}
+
+// ============================================
+// TOAST
+// ============================================
+function toast(message, type = 'success') {
+    const wrap = document.getElementById('toastWrap');
+    const el = document.createElement('div');
+    el.className = `toast ${type}`;
+    el.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-times-circle'}"></i> <span>${message}</span>`;
+    wrap.appendChild(el);
+    requestAnimationFrame(() => el.classList.add('show'));
+    setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 3200);
+}
+
+// ============================================
+// MODAL HELPERS
+// ============================================
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+document.querySelectorAll('.modal-overlay').forEach(ov => {
+    ov.addEventListener('click', e => { if (e.target === ov) ov.classList.remove('show'); });
+});
+
+function confirmAction(title, text, onConfirm) {
+    document.getElementById('confirmTitle').textContent = title;
+    document.getElementById('confirmText').textContent = text;
+    const btn = document.getElementById('confirmActionBtn');
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    newBtn.addEventListener('click', async () => {
+        closeModal('confirmModalOverlay');
+        await onConfirm();
+    });
+    openModal('confirmModalOverlay');
+}
+
+// ============================================
+// SAVE ADMIN SESSION
+// ============================================
+function saveAdminSession(token, user, remember = true) {
+    if (remember) {
+        localStorage.setItem('adminSession', JSON.stringify({
+            token: token,
+            user: user,
+            timestamp: Date.now()
+        }));
+    } else {
+        localStorage.removeItem('adminSession');
+    }
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+}
+
+// ============================================
+// AUTH - LOGIN
+// ============================================
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const remember = document.getElementById('rememberMe').checked;
+    const errBox = document.getElementById('loginError');
+    errBox.style.display = 'none';
+    try {
+        const res = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.message || 'Login failed');
+        if (data.data.user.role !== 'admin') throw new Error('This account does not have admin access.');
+
+        token = data.data.token;
+        currentUser = data.data.user;
+        saveAdminSession(token, currentUser, remember);
+        enterApp();
+    } catch (err) {
+        errBox.textContent = err.message;
+        errBox.style.display = 'block';
+    }
+});
+
+// ============================================
+// LOGOUT
+// ============================================
+function doLogout() {
+    localStorage.removeItem('adminSession');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    token = null;
+    currentUser = null;
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('loginError').style.display = 'none';
+}
+document.getElementById('logoutBtn').addEventListener('click', doLogout);
+
+// ============================================
+// ENTER APP
+// ============================================
+function enterApp() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    document.getElementById('adminName').textContent = currentUser.name || 'Admin';
+    document.getElementById('adminAvatar').textContent = (currentUser.name || 'A').substring(0, 2).toUpperCase();
+    loadDashboard();
+    loadProducts();
+    loadOrders();
+    loadContacts();
+    loadUsers();
+}
+
+// ============================================
+// AUTO-LOGIN
+// ============================================
+(function initAuth() {
+    if (checkSavedLogin()) {
+        // Already logged in
+    } else if (token && currentUser && currentUser.role === 'admin') {
+        enterApp();
+    }
+})();
+
+// ============================================
+// SIDEBAR NAVIGATION
+// ============================================
+document.querySelectorAll('[data-section]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = link.getAttribute('data-section');
+        document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+        document.querySelectorAll(`.sidebar nav a[data-section="${section}"]`).forEach(a => a.classList.add('active'));
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(`section-${section}`).classList.add('active');
+        document.getElementById('pageTitle').textContent = link.textContent.trim().replace(/\d+$/, '').trim() || section;
+        document.getElementById('sidebar').classList.remove('open');
+    });
+});
+document.getElementById('hamburgerAdmin').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('open');
+});
+
+// ============================================
+// DARK MODE
+// ============================================
+function applyTheme() {
+    const dark = localStorage.getItem('theme') === 'dark';
+    document.body.classList.toggle('dark-mode', dark);
+    document.getElementById('dtIcon').textContent = dark ? '☀️' : '🌙';
+    document.getElementById('dtText').textContent = dark ? 'Light' : 'Dark';
+}
+document.getElementById('darkToggleAdmin').addEventListener('click', () => {
+    const dark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+    document.getElementById('dtIcon').textContent = dark ? '☀️' : '🌙';
+    document.getElementById('dtText').textContent = dark ? 'Light' : 'Dark';
+});
+applyTheme();
+
+// ============================================
+// DASHBOARD
+// ============================================
+async function loadDashboard() {
+    try {
+        const data = await apiCall('/admin/stats');
+        const stats = data.data;
+        const grid = document.getElementById('statsGrid');
+        grid.innerHTML = `
+            <div class="stat-card"><div class="icon" style="background:#1e6fbf;"><i class="fas fa-box"></i></div><div class="info"><h3>${stats.totalProducts}</h3><p>Products</p></div></div>
+            <div class="stat-card"><div class="icon" style="background:#1ba965;"><i class="fas fa-shopping-bag"></i></div><div class="info"><h3>${stats.totalOrders}</h3><p>Orders</p></div></div>
+            <div class="stat-card"><div class="icon" style="background:#ff6b35;"><i class="fas fa-dollar-sign"></i></div><div class="info"><h3>$${stats.totalRevenue.toFixed(2)}</h3><p>Revenue</p></div></div>
+            <div class="stat-card"><div class="icon" style="background:#8b5cf6;"><i class="fas fa-users"></i></div><div class="info"><h3>${stats.totalUsers}</h3><p>Users</p></div></div>
+            <div class="stat-card"><div class="icon" style="background:#e69819;"><i class="fas fa-envelope"></i></div><div class="info"><h3>${stats.pendingContacts}</h3><p>Pending Messages</p></div></div>
+            <div class="stat-card"><div class="icon" style="background:#e6483d;"><i class="fas fa-exclamation-triangle"></i></div><div class="info"><h3>${stats.lowStockProducts}</h3><p>Low Stock</p></div></div>
+        `;
+
+        const badge = document.getElementById('contactBadge');
+        if (stats.pendingContacts > 0) { badge.style.display = 'inline-block'; badge.textContent = stats.pendingContacts; }
+        else badge.style.display = 'none';
+
+        const ordersBody = document.getElementById('recentOrdersBody');
+        if (!stats.recentOrders.length) {
+            ordersBody.innerHTML = `<tr><td class="loading-row">No orders yet</td></tr>`;
+        } else {
+            ordersBody.innerHTML = stats.recentOrders.map(o => `
+                <tr>
+                    <td><div class="cell-name">#${o._id.slice(-6).toUpperCase()}<span class="cell-sub">${o.user ? o.user.name : 'Guest'}</span></div></td>
+                    <td>${statusPill(o.orderStatus)}</td>
+                    <td style="text-align:right;font-weight:700;">$${o.total.toFixed(2)}</td>
+                </tr>
+            `).join('');
+        }
+
+        const contactsList = document.getElementById('recentContactsList');
+        if (!stats.recentContacts.length) {
+            contactsList.innerHTML = `<div class="loading-row">No messages yet</div>`;
+        } else {
+            contactsList.innerHTML = stats.recentContacts.map(c => `
+                <div class="detail-line"><span>${c.name} — ${c.subject}</span>${statusPill(c.status)}</div>
+            `).join('');
+        }
+    } catch (err) {
+        toast(err.message, 'error');
+    }
+}
+
+function statusPill(status) {
+    const map = {
+        pending: 'amber', processing: 'blue', shipped: 'blue', delivered: 'green',
+        cancelled: 'red', paid: 'green', failed: 'red', read: 'blue', replied: 'green'
+    };
+    return `<span class="pill ${map[status] || 'gray'}">${status}</span>`;
+}
+
+// ============================================
+// PRODUCTS CRUD
+// ============================================
+async function loadProducts() {
+    try {
+        const data = await apiCall('/products?admin=true&limit=1000');
+        allProducts = data.data;
+        renderProducts();
+    } catch (err) {
+        document.getElementById('productsBody').innerHTML = `<tr><td colspan="6" class="loading-row">${err.message}</td></tr>`;
+    }
+}
+
+function renderProducts() {
+    const search = document.getElementById('productSearch').value.toLowerCase();
+    const category = document.getElementById('productCategoryFilter').value;
+    let list = allProducts.filter(p =>
+        (p.name.toLowerCase().includes(search) || (p.sku || '').toLowerCase().includes(search)) &&
+        (category === 'all' || p.category === category)
+    );
+    const body = document.getElementById('productsBody');
+    if (!list.length) {
+        body.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="fas fa-box-open"></i><p>No products found</p></div></td></tr>`;
+        return;
+    }
+    body.innerHTML = list.map(p => `
+        <tr>
+            <td><div class="cell-name"><img class="prod-thumb" src="${p.image}" onerror="this.src='https://picsum.photos/seed/fallback/100'"> <div>${p.name}<div class="cell-sub">${p.sku || 'No SKU'}</div></div></div></td>
+            <td style="text-transform:capitalize;">${p.category}</td>
+            <td>$${p.price.toFixed(2)}${p.originalPrice ? `<div class="cell-sub" style="text-decoration:line-through;">$${p.originalPrice.toFixed(2)}</div>` : ''}</td>
+            <td>${p.stock <= 5 ? `<span class="pill red">${p.stock} left</span>` : p.stock}</td>
+            <td>${p.isActive ? '<span class="pill green">Active</span>' : '<span class="pill gray">Hidden</span>'}</td>
+            <td>
+                <div class="row-actions">
+                    <button class="icon-btn" title="Edit" onclick="editProduct('${p._id}')"><i class="fas fa-pen"></i></button>
+                    <button class="icon-btn danger" title="Delete" onclick="deleteProduct('${p._id}','${p.name.replace(/'/g, "\\'")}')"><i class="fas fa-trash"></i></button>
+                </div>
+            </td>
+        </tr>
+    `).join('');
+}
+document.getElementById('productSearch').addEventListener('input', renderProducts);
+document.getElementById('productCategoryFilter').addEventListener('change', renderProducts);
+
+document.getElementById('addProductBtn').addEventListener('click', () => {
+    document.getElementById('productForm').reset();
+    document.getElementById('productId').value = '';
+    document.getElementById('pImagePreview').src = '';
+    document.getElementById('productModalTitle').textContent = 'Add Product';
+    openModal('productModalOverlay');
+});
+
+function editProduct(id) {
+    const p = allProducts.find(x => x._id === id);
+    if (!p) return;
+    document.getElementById('productModalTitle').textContent = 'Edit Product';
+    document.getElementById('productId').value = p._id;
+    document.getElementById('pName').value = p.name;
+    document.getElementById('pCategory').value = p.category;
+    document.getElementById('pSku').value = p.sku || '';
+    document.getElementById('pDescription').value = p.description;
+    document.getElementById('pSpec').value = p.spec || '';
+    document.getElementById('pPrice').value = p.price;
+    document.getElementById('pOriginalPrice').value = p.originalPrice || '';
+    document.getElementById('pStock').value = p.stock;
+    document.getElementById('pImage').value = p.image;
+    document.getElementById('pImagePreview').src = p.image;
+    document.getElementById('pBadge').value = p.badge || '';
+    document.getElementById('pBadgeText').value = p.badgeText || '';
+    document.getElementById('pFeatured').checked = !!p.isFeatured;
+    document.getElementById('pActive').checked = !!p.isActive;
+    openModal('productModalOverlay');
+}
+
+document.getElementById('productForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('productId').value;
+    const payload = {
+        name: document.getElementById('pName').value.trim(),
+        category: document.getElementById('pCategory').value,
+        sku: document.getElementById('pSku').value.trim() || undefined,
+        description: document.getElementById('pDescription').value.trim(),
+        spec: document.getElementById('pSpec').value.trim(),
+        price: parseFloat(document.getElementById('pPrice').value),
+        originalPrice: document.getElementById('pOriginalPrice').value ? parseFloat(document.getElementById('pOriginalPrice').value) : null,
+        stock: parseInt(document.getElementById('pStock').value),
+        image: document.getElementById('pImage').value.trim(),
+        badge: document.getElementById('pBadge').value || null,
+        badgeText: document.getElementById('pBadgeText').value.trim() || null,
+        isFeatured: document.getElementById('pFeatured').checked,
+        isActive: document.getElementById('pActive').checked
+    };
+    try {
+        if (id) {
+            await apiCall(`/products/${id}`, 'PUT', payload);
+            toast('Product updated successfully');
+        } else {
+            await apiCall('/products', 'POST', payload);
+            toast('Product created successfully');
+        }
+        closeModal('productModalOverlay');
+        loadProducts();
+        loadDashboard();
+    } catch (err) {
+        toast(err.message, 'error');
+    }
+});
+
+function deleteProduct(id, name) {
+    confirmAction('Delete Product?', `"${name}" will be permanently removed.`, async () => {
+        try {
+            await apiCall(`/products/${id}`, 'DELETE');
+            toast('Product deleted');
+            loadProducts();
+            loadDashboard();
+        } catch (err) {
+            toast(err.message, 'error');
+        }
+    });
+}
+
+// ============================================
+// ORDERS
+// ============================================
+async function loadOrders() {
+    try {
+        const data = await apiCall('/orders/admin/all');
+        allOrders = data.data;
+        renderOrders();
+    } catch (err) {
+        document.getElementById('ordersBody').innerHTML = `<tr><td colspan="8" class="loading-row">${err.message}</td></tr>`;
+    }
+}
+
+function renderOrders() {
+    const search = document.getElementById('orderSearch').value.toLowerCase();
+    const status = document.getElementById('orderStatusFilter').value;
+    let list = allOrders.filter(o => {
+        const name = o.user ? `${o.user.name} ${o.user.email}`.toLowerCase() : 'guest';
+        return name.includes(search) && (status === 'all' || o.orderStatus === status);
+    });
+    const body = document.getElementById('ordersBody');
+    if (!list.length) {
+        body.innerHTML = `<tr><td colspan="8"><div class="empty-state"><i class="fas fa-shopping-bag"></i><p>No orders found</p></div></td></tr>`;
+        return;
+    }
+    body.innerHTML = list.map(o => `
+        <tr>
+            <td><b>#${o._id.slice(-6).toUpperCase()}</b></td>
+            <td>${o.user ? o.user.name : 'Guest'}<div class="cell-sub">${o.user ? o.user.email : ''}</div></td>
+            <td>${o.items.length} item(s)</td>
+            <td style="font-weight:700;">$${o.total.toFixed(2)}</td>
+            <td>${statusPill(o.paymentStatus)}</td>
+            <td>
+                <select class="status-select" onchange="updateOrderStatus('${o._id}', this.value)">
+                    ${['pending','processing','shipped','delivered','cancelled'].map(s => `<option value="${s}" ${s === o.orderStatus ? 'selected' : ''}>${s}</option>`).join('')}
+                </select>
+            </td>
+            <td>${new Date(o.createdAt).toLocaleDateString()}</td>
+            <td><button class="icon-btn" title="View" onclick="viewOrder('${o._id}')"><i class="fas fa-eye"></i></button></td>
+        </tr>
+    `).join('');
+}
+document.getElementById('orderSearch').addEventListener('input', renderOrders);
+document.getElementById('orderStatusFilter').addEventListener('change', renderOrders);
+
+async function updateOrderStatus(id, status) {
+    try {
+        await apiCall(`/orders/admin/${id}/status`, 'PUT', { status });
+        toast('Order status updated');
+        loadOrders();
+        loadDashboard();
+    } catch (err) {
+        toast(err.message, 'error');
+        loadOrders();
+    }
+}
+
+function viewOrder(id) {
+    const o = allOrders.find(x => x._id === id);
+    if (!o) return;
+    const body = document.getElementById('orderModalBody');
+    body.innerHTML = `
+        <div class="detail-line"><span>Order ID</span><b>#${o._id.slice(-6).toUpperCase()}</b></div>
+        <div class="detail-line"><span>Customer</span><b>${o.user ? `${o.user.name} (${o.user.email})` : 'Guest'}</b></div>
+        <div class="detail-line"><span>Order Status</span>${statusPill(o.orderStatus)}</div>
+        <div class="detail-line"><span>Payment</span>${statusPill(o.paymentStatus)} <span style="text-transform:capitalize;">${o.paymentMethod.replace('_',' ')}</span></div>
+        <div class="detail-line"><span>Shipping Address</span><span style="text-align:right;">${o.shippingAddress.street}, ${o.shippingAddress.city}, ${o.shippingAddress.state}, ${o.shippingAddress.country} ${o.shippingAddress.zipCode}</span></div>
+        <h4 style="margin:16px 0 8px;font-size:.9rem;">Items</h4>
+        ${o.items.map(i => `<div class="order-item-row"><span>${i.name} × ${i.quantity}</span><b>$${(i.price * i.quantity).toFixed(2)}</b></div>`).join('')}
+        <div class="detail-line" style="margin-top:10px;"><span>Subtotal</span><span>$${o.subtotal.toFixed(2)}</span></div>
+        <div class="detail-line"><span>Tax</span><span>$${o.tax.toFixed(2)}</span></div>
+        <div class="detail-line"><span>Shipping</span><span>$${o.shippingCost.toFixed(2)}</span></div>
+        <div class="detail-line" style="font-weight:800;font-size:1rem;"><span>Total</span><span>$${o.total.toFixed(2)}</span></div>
+        ${o.notes ? `<div class="detail-line"><span>Notes</span><span>${o.notes}</span></div>` : ''}
+    `;
+    openModal('orderModalOverlay');
+}
+
+// ============================================
+// CONTACTS
+// ============================================
+async function loadContacts() {
+    try {
+        const data = await apiCall('/contact/admin/all');
+        allContacts = data.data;
+        renderContacts();
+    } catch (err) {
+        document.getElementById('contactsBody').innerHTML = `<tr><td colspan="6" class="loading-row">${err.message}</td></tr>`;
+    }
+}
+
+function renderContacts() {
+    const search = document.getElementById('contactSearch').value.toLowerCase();
+    const status = document.getElementById('contactStatusFilter').value;
+    let list = allContacts.filter(c =>
+        `${c.name} ${c.email} ${c.subject}`.toLowerCase().includes(search) &&
+        (status === 'all' || c.status === status)
+    );
+    const body = document.getElementById('contactsBody');
+    if (!list.length) {
+        body.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="fas fa-envelope-open"></i><p>No messages found</p></div></td></tr>`;
+        return;
+    }
+    body.innerHTML = list.map(c => `
+        <tr>
+            <td><b>${c.name}</b></td>
+            <td>${c.email}</td>
+            <td>${c.subject}</td>
+            <td>${statusPill(c.status)}</td>
+            <td>${new Date(c.createdAt).toLocaleDateString()}</td>
+            <td><button class="icon-btn" title="View / Reply" onclick="viewContact('${c._id}')"><i class="fas fa-reply"></i></button></td>
+        </tr>
+    `).join('');
+}
+document.getElementById('contactSearch').addEventListener('input', renderContacts);
+document.getElementById('contactStatusFilter').addEventListener('change', renderContacts);
+
+function viewContact(id) {
+    const c = allContacts.find(x => x._id === id);
+    if (!c) return;
+    const body = document.getElementById('contactModalBody');
+    body.innerHTML = `
+        <div class="detail-line"><span>From</span><b>${c.name} (${c.email})</b></div>
+        <div class="detail-line"><span>Subject</span><b>${c.subject}</b></div>
+        <div class="detail-line"><span>Status</span>${statusPill(c.status)}</div>
+        <div class="form-group" style="margin-top:14px;"><label>Message</label>
+            <div style="background:var(--bg);padding:12px 14px;border-radius:8px;font-size:.85rem;">${c.message}</div>
+        </div>
+        ${c.replyMessage ? `<div class="form-group"><label>Your Reply</label><div style="background:var(--bg);padding:12px 14px;border-radius:8px;font-size:.85rem;">${c.replyMessage}</div></div>` : `
+        <div class="form-group"><label>Send Reply</label><textarea id="replyText" rows="4" placeholder="Type your reply..."></textarea></div>
+        <div class="modal-actions"><button class="btn btn-primary" style="width:auto;" onclick="sendReply('${c._id}')"><i class="fas fa-paper-plane"></i> Send Reply</button></div>
+        `}
+    `;
+    openModal('contactModalOverlay');
+}
+
+async function sendReply(id) {
+    const reply = document.getElementById('replyText').value.trim();
+    if (!reply) { toast('Please write a reply first', 'error'); return; }
+    try {
+        await apiCall(`/contact/admin/${id}/reply`, 'PUT', { reply });
+        toast('Reply sent successfully');
+        closeModal('contactModalOverlay');
+        loadContacts();
+        loadDashboard();
+    } catch (err) {
+        toast(err.message, 'error');
+    }
+}
+
+// ============================================
+// USERS
+// ============================================
+async function loadUsers() {
+    try {
+        const data = await apiCall('/admin/users');
+        allUsers = data.data;
+        renderUsers();
+    } catch (err) {
+        document.getElementById('usersBody').innerHTML = `<tr><td colspan="7" class="loading-row">${err.message}</td></tr>`;
+    }
+}
+
+function renderUsers() {
+    const search = document.getElementById('userSearch').value.toLowerCase();
+    let list = allUsers.filter(u => `${u.name} ${u.email}`.toLowerCase().includes(search));
+    const body = document.getElementById('usersBody');
+    if (!list.length) {
+        body.innerHTML = `<tr><td colspan="7"><div class="empty-state"><i class="fas fa-users"></i><p>No users found</p></div></td></tr>`;
+        return;
+    }
+    body.innerHTML = list.map(u => `
+        <tr>
+            <td><b>${u.name}</b></td>
+            <td>${u.email}</td>
+            <td>
+                <select class="status-select" onchange="updateUserField('${u._id}','role',this.value)" ${u._id === currentUser.id || u._id === currentUser._id ? 'disabled' : ''}>
+                    <option value="user" ${u.role === 'user' ? 'selected' : ''}>User</option>
+                    <option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+                </select>
+            </td>
+            <td>
+                <select class="status-select" onchange="updateUserField('${u._id}','isActive',this.value === 'true')">
+                    <option value="true" ${u.isActive ? 'selected' : ''}>Active</option>
+                    <option value="false" ${!u.isActive ? 'selected' : ''}>Inactive</option>
+                </select>
+            </td>
+            <td>${new Date(u.createdAt).toLocaleDateString()}</td>
+            <td>${u.lastLogin ? `<span class="pill blue">${new Date(u.lastLogin).toLocaleDateString()}</span>` : `<span class="pill gray">Never</span>`}</td>
+            <td><button class="icon-btn danger" title="Delete" onclick="deleteUser('${u._id}','${u.name.replace(/'/g, "\\'")}')"><i class="fas fa-trash"></i></button></td>
+        </tr>
+    `).join('');
+}
+document.getElementById('userSearch').addEventListener('input', renderUsers);
+
+async function updateUserField(id, field, value) {
+    try {
+        await apiCall(`/admin/users/${id}`, 'PUT', { [field]: value });
+        toast('User updated');
+        loadUsers();
+    } catch (err) {
+        toast(err.message, 'error');
+        loadUsers();
+    }
+}
+
+function deleteUser(id, name) {
+    confirmAction('Delete User?', `"${name}"'s account will be permanently removed.`, async () => {
+        try {
+            await apiCall(`/admin/users/${id}`, 'DELETE');
+            toast('User deleted');
+            loadUsers();
+            loadDashboard();
+        } catch (err) {
+            toast(err.message, 'error');
+        }
+    });
+}
+</script>
+</body>
+</html>

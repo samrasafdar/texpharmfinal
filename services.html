@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tex-Pharm Inc - Services</title>
+    <link rel="icon" href="logo.png" type="image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #eef4ff; 
+            color: #1a2a4a; 
+            padding-top: 80px; 
+            transition: background 0.3s, color 0.3s; 
+            min-height: 100vh;
+        }
+        body.dark-mode { 
+            background: #12182a; 
+            color: #e8edf5; 
+        }
+
+        /* ===== DARK MODE SPECIFIC ===== */
+        body.dark-mode .page-title { background: linear-gradient(135deg, #0a1a30, #16213e); }
+        body.dark-mode .page-title h1 { color: #d0e4ff; }
+        body.dark-mode .page-title p { color: #a0b8d8; }
+        body.dark-mode .intro { background: #1e2a4a; }
+        body.dark-mode .intro h2 { color: #c0d4f0; }
+        body.dark-mode .intro p { color: #a8b8d8; }
+        body.dark-mode .service-box { background: #1e2a4a; }
+        body.dark-mode .service-box h3 { color: #c0d4f0; }
+        body.dark-mode .service-box p { color: #a8b8d8; }
+        body.dark-mode .service-box .icon-circle { background: rgba(100,150,255,0.12); color: #6ea8fe; }
+        body.dark-mode .service-box:hover .icon-circle { background: #6ea8fe; color: #0a1a30; }
+        body.dark-mode .two-col { background: #1e2a4a; }
+        body.dark-mode .two-col h2 { color: #c0d4f0; }
+        body.dark-mode .two-col p { color: #a8b8d8; }
+        body.dark-mode .two-col .feature-list li { color: #a8b8d8; }
+        body.dark-mode .two-col .feature-list li i { color: #6ea8fe; }
+        body.dark-mode .two-col[style*="background"] { background: #0a1a30 !important; }
+        body.dark-mode .process { background: #0a1a30; }
+        body.dark-mode .process h2 { color: #c0d4f0; }
+        body.dark-mode .process p { color: #8899bb !important; }
+        body.dark-mode .step { background: #1e2a4a; }
+        body.dark-mode .step h4 { color: #c0d4f0; }
+        body.dark-mode .step p { color: #a8b8d8; }
+        body.dark-mode .step .step-number { background: #6ea8fe; color: #0a1a30; }
+        body.dark-mode .navbar { background: linear-gradient(135deg, #1a3050, #0d2040) !important; }
+        body.dark-mode .navbar .logo a { color: #d0e4ff; }
+        body.dark-mode .navbar .logo a i { color: #6ea8fe; }
+        body.dark-mode .navbar .logo a span { color: #6ea8fe; }
+        body.dark-mode .nav-links li a { color: rgba(200, 215, 240, 0.9); }
+        body.dark-mode .nav-links li a:hover { background: rgba(100, 150, 255, 0.15); color: white; }
+        body.dark-mode .dark-toggle-nav { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.05); }
+        body.dark-mode .dark-toggle-nav .toggle-text { color: rgba(200, 215, 240, 0.9); }
+        body.dark-mode .user-avatar-wrapper .user-name { color: #d0e4ff; }
+        body.dark-mode .user-avatar-circle { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+        body.dark-mode .dropdown-menu { background: #1e2a4a; box-shadow: 0 10px 50px rgba(0,0,0,0.4); }
+        body.dark-mode .dropdown-avatar-circle { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+        body.dark-mode .dropdown-info h4 { color: #d0e4ff; }
+        body.dark-mode .dropdown-item { color: #e8edf5; }
+        body.dark-mode .dropdown-item:hover { background: #0a1a30; color: #6ea8fe; }
+        body.dark-mode .dropdown-item:hover i { color: #6ea8fe; }
+        body.dark-mode .dropdown-divider { background: #2a3a5a; }
+        body.dark-mode .footer { background: linear-gradient(135deg, #1a3050, #0d2040) !important; color: #d0e4ff; }
+        body.dark-mode .footer-section h3 { color: #c0d4f0; }
+        body.dark-mode .footer-section p { color: #a8b8d8; }
+        body.dark-mode .footer-section ul li a { color: rgba(200, 215, 240, 0.8); }
+        body.dark-mode .footer-section ul li a:hover { color: #ff6b35; }
+        body.dark-mode .social-links a { background: rgba(255, 255, 255, 0.08); color: #c0d4f0; }
+        body.dark-mode .footer-bottom { border-top-color: rgba(255, 255, 255, 0.08); color: rgba(200, 215, 240, 0.4); }
+        body.dark-mode .toggle-track { background: rgba(255, 255, 255, 0.1); }
+        body.dark-mode .hamburger span { background: #c0d4f0; }
+
+        /* ===== NAVBAR ===== */
+        .navbar { 
+            background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important; 
+            padding: 0 25px; 
+            height: 65px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            z-index: 9998; 
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3); 
+            box-shadow: 0 4px 20px rgba(11, 94, 215, 0.1);
+            transition: all 0.3s ease; 
+        }
+        .navbar.scrolled { height: 60px; }
+
+        .logo a { 
+            font-size: 1.3rem; 
+            font-weight: 800; 
+            color: #0a2a4a; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
+        .logo a i { font-size: 1.4rem; color: #0a2a4a; }
+        .logo a span { color: #0a2a4a; }
+
+        .nav-links { 
+            display: flex; 
+            align-items: center; 
+            gap: 3px; 
+            list-style: none; 
+        }
+        .nav-links li a { 
+            color: #0a2a4a; 
+            text-decoration: none; 
+            padding: 5px 12px; 
+            font-weight: 500; 
+            font-size: 0.8rem; 
+            border-radius: 6px; 
+            transition: all 0.3s; 
+            display: flex; 
+            align-items: center; 
+            gap: 4px; 
+        }
+        .nav-links li a:hover, 
+        .nav-links li a.active { 
+            background: rgba(255, 255, 255, 0.35); 
+            color: #003366; 
+        }
+
+        .nav-cart { position: relative; }
+        .cart-badge { 
+            background: #ff6b35; 
+            color: white; 
+            border-radius: 50%; 
+            padding: 1px 6px; 
+            font-size: 0.6rem; 
+            font-weight: 700; 
+            position: absolute; 
+            top: -4px; 
+            right: -6px; 
+        }
+
+        .dark-toggle-nav { 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            margin-left: 8px; 
+            padding: 4px 10px; 
+            background: rgba(255, 255, 255, 0.25); 
+            border-radius: 50px; 
+            cursor: pointer; 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            transition: all 0.3s; 
+        }
+        .dark-toggle-nav:hover { background: rgba(255, 255, 255, 0.4); }
+        .dark-toggle-nav .toggle-icon { font-size: 0.9rem; }
+        .dark-toggle-nav .toggle-text { 
+            font-size: 0.65rem; 
+            font-weight: 500; 
+            color: #0a2a4a; 
+        }
+
+        .toggle-track { 
+            position: relative; 
+            width: 30px; 
+            height: 16px; 
+            background: rgba(255, 255, 255, 0.25); 
+            border-radius: 8px; 
+            transition: all 0.3s; 
+            flex-shrink: 0; 
+            cursor: pointer; 
+        }
+        .toggle-track.active { background: #ff6b35; }
+        .toggle-track .toggle-thumb { 
+            position: absolute; 
+            top: 2px; 
+            left: 2px; 
+            width: 12px; 
+            height: 12px; 
+            background: white; 
+            border-radius: 50%; 
+            transition: all 0.3s; 
+        }
+        .toggle-track.active .toggle-thumb { transform: translateX(14px); }
+
+        .hamburger { 
+            display: none; 
+            flex-direction: column; 
+            gap: 4px; 
+            cursor: pointer; 
+            background: none; 
+            border: none; 
+            padding: 4px; 
+        }
+        .hamburger span { 
+            width: 22px; 
+            height: 2.5px; 
+            background: #0a2a4a; 
+            border-radius: 2px; 
+            transition: all 0.3s; 
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+        /* ===== USER DROPDOWN - ONLY PROFILE & LOGOUT ===== */
+        .nav-user { position: relative; margin-left: 5px; }
+        .user-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .user-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .user-avatar-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0a2a4a;
+        }
+        .user-avatar-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .user-btn:hover .user-avatar-circle {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(2,44,107,0.3);
+        }
+        .user-avatar-wrapper .user-name { font-weight: 600; font-size: 0.9rem; color: #0a2a4a; }
+        .user-avatar-wrapper .dropdown-arrow { font-size: 0.7rem; color: #8899bb; transition: transform 0.3s; }
+        .user-btn.active .dropdown-arrow { transform: rotate(180deg); }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 280px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(11, 94, 215, 0.15);
+            padding: 10px 0;
+            margin-top: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            border: 1px solid rgba(176, 208, 232, 0.3);
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-header {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, #dce8ff, #c8dcff);
+            margin: 0 0 6px 0;
+            border-radius: 12px 12px 0 0;
+        }
+        .dropdown-avatar-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+        .dropdown-info h4 { font-size: 0.95rem; font-weight: 600; color: #022c6b; }
+        .dropdown-info p { font-size: 0.8rem; color: #6688aa; margin-top: 2px; }
+
+        .dropdown-divider { height: 1px; background: linear-gradient(to right, #b0d0e8, transparent); margin: 6px 16px; }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: #1a2a4a;
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin: 2px 8px;
+            border-radius: 10px;
+        }
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #dce8ff, #c8dcff);
+            color: #022c6b;
+        }
+        .dropdown-item i { width: 22px; color: #6688aa; font-size: 1rem; }
+        .dropdown-item:hover i { color: #022c6b; }
+
+        .dropdown-item.logout-item { color: #dc3545; margin-top: 4px; }
+        .dropdown-item.logout-item i { color: #dc3545; }
+        .dropdown-item.logout-item:hover { background: #fee; color: #dc3545; }
+        .dropdown-item.logout-item:hover i { color: #dc3545; }
+
+        .dropdown-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9998;
+        }
+        .dropdown-overlay.show { display: block; }
+
+        /* ===== PAGE TITLE ===== */
+        .page-title { 
+            background: linear-gradient(135deg, #d0e1ff, #a4c6fc); 
+            color: #022c6b; 
+            padding: 50px 20px; 
+            text-align: center; 
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+
+        }
+        .page-title h1 { font-size: 2.2rem; font-weight: 800; color: #022c6b; }
+        .page-title h1 i { margin-right: 15px; }
+        .page-title p { font-size: 1rem; color: #1e3a66; max-width: 600px; margin: 10px auto 0; }
+
+        /* ===== INTRO ===== */
+        .intro { 
+            background: white; 
+            padding: 50px 30px; 
+            max-width: 1100px; 
+            margin: -30px auto 0; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
+        }
+        .intro h2 { 
+            color: #022c6b; 
+            font-size: 1.8rem; 
+            font-weight: 700; 
+            text-align: center; 
+            margin-bottom: 12px; 
+        }
+        .intro p { 
+            font-size: 0.98rem; 
+            color: #555; 
+            text-align: center; 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+
+        /* ===== SERVICES GRID ===== */
+        .section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .service-box { 
+            background: white; 
+            padding: 25px 20px; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
+            transition: all 0.3s; 
+            text-align: center; 
+            position: relative; 
+            overflow: hidden; 
+        }
+        .service-box::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            height: 4px; 
+            background: linear-gradient(to right, #022c6b, #ff6b35); 
+            transform: scaleX(0); 
+            transition: all 0.3s; 
+        }
+        .service-box:hover::before { transform: scaleX(1); }
+        .service-box:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        .service-box .icon-circle { 
+            width: 70px; 
+            height: 70px; 
+            background: linear-gradient(135deg, rgba(2,44,107,0.1), rgba(255,107,53,0.1)); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 0 auto 15px; 
+            font-size: 1.8rem; 
+            color: #022c6b; 
+            transition: all 0.3s; 
+        }
+        .service-box:hover .icon-circle { 
+            background: #022c6b; 
+            color: white; 
+            transform: rotateY(180deg); 
+        }
+        .service-box h3 { color: #022c6b; font-size: 1.1rem; margin-bottom: 10px; }
+        .service-box p { color: #666; font-size: 0.9rem; line-height: 1.6; }
+
+        /* ===== TWO COLUMN ===== */
+        .two-col { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px; 
+            padding: 60px 35px; 
+            background: white; 
+            align-items: center; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
+        }
+        .two-col .image-wrapper { overflow: hidden; border-radius: 15px; }
+        .two-col img { width: 100%; border-radius: 15px; transition: all 0.3s; }
+        .two-col:hover img { transform: scale(1.03); }
+        .two-col h2 { color: #022c6b; font-size: 1.6rem; font-weight: 700; margin-bottom: 12px; }
+        .two-col h2 i { margin-right: 10px; }
+        .two-col p { color: #555; font-size: 0.95rem; line-height: 1.8; margin-bottom: 12px; }
+        .two-col .feature-list { list-style: none; padding: 0; }
+        .two-col .feature-list li { padding: 6px 0; font-size: 0.9rem; color: #555; }
+        .two-col .feature-list li i { color: #022c6b; margin-right: 10px; }
+
+        /* ===== PROCESS ===== */
+        .process { 
+            background: linear-gradient(135deg, #f0f4ff, #e8edf5); 
+            padding: 60px 30px; 
+            text-align: center; 
+            border-radius: 30px; 
+            max-width: 1200px; 
+            margin: 50px auto; 
+        }
+        .process h2 { color: #022c6b; font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; }
+        .step { 
+            background: white; 
+            padding: 25px 15px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06); 
+            transition: all 0.3s; 
+        }
+        .step:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        .step .step-number { 
+            display: inline-block; 
+            width: 36px; 
+            height: 36px; 
+            background: #022c6b; 
+            color: white; 
+            border-radius: 50%; 
+            line-height: 36px; 
+            font-weight: 700; 
+            font-size: 1rem; 
+            margin-bottom: 10px; 
+        }
+        .step h4 { font-size: 0.95rem; color: #022c6b; margin-bottom: 5px; }
+        .step p { font-size: 0.8rem; color: #666; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important;
+            color: #0a2a4a;
+            padding: 40px 25px 15px;
+            margin-top: 0;
+            border-top: 3px solid rgba(255, 255, 255, 0.3);
+            transition: background 0.3s, color 0.3s;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        .footer-section h3 {
+            color: #0a2a4a;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        .footer-section h3::after {
+            content: '';
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #ff6b35;
+            margin-top: 5px;
+            border-radius: 2px;
+        }
+        .footer-section p { color: #0a2a4a; font-size: 0.85rem; line-height: 1.6; }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 6px; }
+        .footer-section ul li a {
+            color: #0a2a4a;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .footer-section ul li a:hover { color: #ff6b35; padding-left: 4px; }
+        .footer-section ul li a i { width: 16px; color: #ff6b35; }
+        .social-links {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: #0a2a4a;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .social-links a:hover {
+            background: #ff6b35;
+            color: white;
+            transform: translateY(-3px) scale(1.1);
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(10, 42, 74, 0.15);
+            padding-top: 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(10, 42, 74, 0.6);
+        }
+        .footer-bottom a { color: #ff6b35; text-decoration: none; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .two-col { grid-template-columns: 1fr; padding: 35px 25px; }
+            .page-title h1 { font-size: 1.8rem; }
+            .intro { padding: 35px 20px; margin: -20px 15px 0; }
+        }
+
+        @media (max-width: 768px) {
+            .page-title { padding: 40px 15px;  }
+            .page-title h1 { font-size: 1.5rem; }
+            .intro h2 { font-size: 1.4rem; }
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: fixed; 
+                top: 65px; 
+                left: 0; 
+                right: 0; 
+                background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important; 
+                padding: 15px; 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+                z-index: 9997;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links li { width: 100%; }
+            .nav-links li a { 
+                color: #0a2a4a !important; 
+                width: 100%; 
+                text-align: center; 
+                padding: 10px; 
+            }
+            body.dark-mode .nav-links li a { color: rgba(200, 215, 240, 0.9) !important; }
+            .hamburger { display: flex; }
+            .dark-toggle-nav {
+                margin-left: 0;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.2);
+                padding: 5px 12px;
+            }
+            .dark-toggle-nav .toggle-text { color: #0a2a4a !important; }
+            body.dark-mode .dark-toggle-nav .toggle-text { color: rgba(200, 215, 240, 0.9) !important; }
+            .user-avatar-wrapper .user-name { display: none; }
+            .user-avatar-circle { width: 32px; height: 32px; font-size: 0.75rem; }
+            .dropdown-menu { min-width: 250px; right: -10px; }
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .process { padding: 40px 20px; }
+            .process-steps { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 { font-size: 1.3rem; }
+            .intro { padding: 25px 15px; }
+            .intro h2 { font-size: 1.2rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .two-col { padding: 25px 15px; }
+            .two-col h2 { font-size: 1.3rem; }
+            .process { padding: 30px 15px; }
+            .process h2 { font-size: 1.5rem; }
+            .process-steps { grid-template-columns: 1fr; }
+            .user-avatar-wrapper .user-name { display: none; }
+            .user-avatar-circle { width: 28px; height: 28px; font-size: 0.65rem; }
+            .dropdown-menu { min-width: 220px; right: -15px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="mainNavbar">
+    <div class="logo">
+        <a href="index.html"><i class="fas fa-industry"></i> Tex<span>Pharm</span></a>
+    </div>
+
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="services.html" class="active"><i class="fas fa-cogs"></i> Services</a></li>
+        <li><a href="product.html"><i class="fas fa-box"></i> Product</a></li>
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li class="nav-cart"><a href="checkout.html"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-badge" id="cartCount">0</span></a></li>
+        
+        <!-- ===== USER DROPDOWN - ONLY PROFILE & LOGOUT ===== -->
+        <li class="nav-user">
+            <div class="user-dropdown">
+                <button class="user-btn" onclick="toggleDropdown()">
+                    <div class="user-avatar-wrapper">
+                        <div class="user-avatar-circle" id="userAvatarCircle">
+                            <span id="userInitials">U</span>
+                        </div>
+                        <span class="user-name" id="userNameDisplay">User</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                </button>
+                
+                <div class="dropdown-menu" id="userDropdown">
+                    <div class="dropdown-header">
+                        <div class="dropdown-avatar-circle" id="dropdownAvatarCircle">
+                            <span id="dropdownInitials">U</span>
+                        </div>
+                        <div class="dropdown-info">
+                            <h4 id="dropdownName">User</h4>
+                            <p id="dropdownEmail">user@email.com</p>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout-item" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </li>
+        
+        <!-- Dark Mode Toggle -->
+        <li>
+            <div class="dark-toggle-nav" onclick="toggleDarkMode()">
+                <span class="toggle-icon" id="toggleIcon">🌙</span>
+                <span class="toggle-text" id="toggleText">Dark</span>
+                <div class="toggle-track" id="toggleTrack">
+                    <div class="toggle-thumb"></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<!-- ===== PAGE TITLE ===== -->
+<section class="page-title">
+    <h1><i class="fas fa-cogs"></i> Our Services</h1>
+    <p>Tex-Pharm Inc provides integrated textile and chemical solutions for modern industries</p>
+</section>
+
+<!-- ===== INTRO ===== -->
+<section class="intro">
+    <h2>Textile &amp; Chemical Industry Solutions</h2>
+    <p>Tex-Pharm Inc specializes in combining advanced textile manufacturing with high-quality chemical processing. Our operations support fabric production, dyeing, finishing, and industrial chemical supply while maintaining strict quality and environmental standards.</p>
+</section>
+
+<!-- ===== SERVICES GRID ===== -->
+<section class="section">
+    <div class="services-grid">
+        <div class="service-box">
+            <div class="icon-circle"><i class="fas fa-industry"></i></div>
+            <h3>Textile Manufacturing</h3>
+            <p>High-capacity textile production including weaving, knitting, and fabric processing with modern machinery.</p>
+        </div>
+        <div class="service-box">
+            <div class="icon-circle"><i class="fas fa-paint-brush"></i></div>
+            <h3>Dyeing &amp; Finishing</h3>
+            <p>Advanced dyeing and finishing solutions ensuring color consistency and fabric durability for premium results.</p>
+        </div>
+        <div class="service-box">
+            <div class="icon-circle"><i class="fas fa-flask"></i></div>
+            <h3>Chemical Processing</h3>
+            <p>Industrial chemical processing for textile treatments, coatings, and surface enhancements with precision.</p>
+        </div>
+        <div class="service-box">
+            <div class="icon-circle"><i class="fas fa-microscope"></i></div>
+            <h3>Quality Control &amp; Testing</h3>
+            <p>In-house laboratories ensuring fabric strength, color fastness, and chemical safety for every product.</p>
+        </div>
+        <div class="service-box">
+            <div class="icon-circle"><i class="fas fa-truck"></i></div>
+            <h3>Industrial Supply &amp; Logistics</h3>
+            <p>Reliable supply chain management for raw materials, chemicals, and finished goods with real-time tracking.</p>
+        </div>
+        <div class="service-box">
+            <div class="icon-circle"><i class="fas fa-leaf"></i></div>
+            <h3>Environmental Compliance</h3>
+            <p>Eco-friendly processes ensuring environmental protection and regulatory compliance for sustainable growth.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TWO COLUMN ===== -->
+<div class="two-col">
+    <div class="image-wrapper">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop&crop=center" alt="Textile Production">
+    </div>
+    <div>
+        <h2><i class="fas fa-building"></i> Modern Textile Production Facilities</h2>
+        <p>Our textile units are equipped with modern machinery designed for high efficiency, consistent quality, and large-scale production.</p>
+        <ul class="feature-list">
+            <li><i class="fas fa-check-circle"></i> High-speed automated looms</li>
+            <li><i class="fas fa-check-circle"></i> Computer-controlled dyeing lines</li>
+            <li><i class="fas fa-check-circle"></i> Advanced quality inspection systems</li>
+        </ul>
+    </div>
+</div>
+
+<div class="two-col" style="background: linear-gradient(135deg, #f0f4ff, #e8edf5); margin-top:30px;">
+    <div>
+        <h2><i class="fas fa-lab"></i> Advanced Chemical Laboratories</h2>
+        <p>Our chemical labs support research, testing, and formulation development for textile and industrial chemical applications.</p>
+        <ul class="feature-list">
+            <li><i class="fas fa-check-circle"></i> State-of-the-art testing equipment</li>
+            <li><i class="fas fa-check-circle"></i> Experienced chemical engineers</li>
+            <li><i class="fas fa-check-circle"></i> Custom formulation development</li>
+        </ul>
+    </div>
+    <div class="image-wrapper">
+        <img src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=600&h=400&fit=crop&crop=center" alt="Chemical Labs">
+    </div>
+</div>
+
+<!-- ===== PROCESS ===== -->
+<section class="process">
+    <h2>Our Operational Process</h2>
+    <p style="color:#666; margin-bottom:30px; font-size:0.98rem;">A systematic approach to ensure quality and efficiency at every stage</p>
+    <div class="process-steps">
+        <div class="step">
+            <div class="step-number">01</div>
+            <h4>Raw Material Selection</h4>
+            <p>Carefully sourced premium raw materials</p>
+        </div>
+        <div class="step">
+            <div class="step-number">02</div>
+            <h4>Textile Production</h4>
+            <p>Weaving, knitting, and fabric processing</p>
+        </div>
+        <div class="step">
+            <div class="step-number">03</div>
+            <h4>Chemical Treatment</h4>
+            <p>Dyeing, finishing, and chemical processing</p>
+        </div>
+        <div class="step">
+            <div class="step-number">04</div>
+            <h4>Quality Inspection</h4>
+            <p>Rigorous testing and quality control</p>
+        </div>
+        <div class="step">
+            <div class="step-number">05</div>
+            <h4>Packaging &amp; Delivery</h4>
+            <p>Safe packaging and timely delivery</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3><i class="fas fa-industry"></i> Tex-Pharm Inc</h3>
+            <p>Premium textile manufacturing and chemical processing solutions since 2010. Trusted by industries worldwide.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3><i class="fas fa-link"></i> Quick Links</h3>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                <li><a href="product.html"><i class="fas fa-chevron-right"></i> Product</a></li>
+                <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3><i class="fas fa-address-card"></i> Contact Info</h3>
+            <ul>
+                <li><a href="tel:+923006694285"><i class="fas fa-phone"></i> +92 300 6694285</a></li>
+                <li><a href="mailto:info@tex-pharm.com"><i class="fas fa-envelope"></i> info@tex-pharm.com</a></li>
+                <li><a href="#"><i class="fas fa-map-marker-alt"></i> Faisalabad, Pakistan</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 <a href="index.html">Tex-Pharm Inc</a>. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // ===== AVATAR FUNCTIONS =====
+    function getUserInitials(name) {
+        if (!name) return 'U';
+        const parts = name.trim().split(' ');
+        if (parts.length >= 2) {
+            return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        }
+        return name.substring(0, 2).toUpperCase();
+    }
+
+    function getAvatarColor(email) {
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'];
+        let hash = 0;
+        for (let i = 0; i < email.length; i++) {
+            hash = email.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return colors[Math.abs(hash) % colors.length];
+    }
+
+    function updateNavbarUser(user) {
+        if (!user) return;
+        const initials = getUserInitials(user.name);
+        const color = getAvatarColor(user.email);
+        
+        const navCircle = document.getElementById('userAvatarCircle');
+        navCircle.style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+        document.getElementById('userInitials').textContent = initials;
+        document.getElementById('userNameDisplay').textContent = user.name;
+        
+        const dropCircle = document.getElementById('dropdownAvatarCircle');
+        dropCircle.style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+        document.getElementById('dropdownInitials').textContent = initials;
+        document.getElementById('dropdownName').textContent = user.name;
+        document.getElementById('dropdownEmail').textContent = user.email;
+    }
+
+    // ===== DARK MODE =====
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const icon = document.getElementById('toggleIcon');
+        const text = document.getElementById('toggleText');
+        const track = document.getElementById('toggleTrack');
+        
+        if (document.body.classList.contains('dark-mode')) {
+            icon.textContent = '☀️';
+            text.textContent = 'Light';
+            track.classList.add('active');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            icon.textContent = '🌙';
+            text.textContent = 'Dark';
+            track.classList.remove('active');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('toggleIcon').textContent = '☀️';
+        document.getElementById('toggleText').textContent = 'Light';
+        document.getElementById('toggleTrack').classList.add('active');
+    }
+
+    // ===== MOBILE MENU =====
+    function toggleMobileMenu() {
+        document.getElementById('navLinks').classList.toggle('open');
+        document.getElementById('hamburgerBtn').classList.toggle('active');
+    }
+
+    // ===== NAVBAR SCROLL EFFECT =====
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('mainNavbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // ===== CLOSE MENU ON LINK CLICK =====
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            document.getElementById('navLinks').classList.remove('open');
+            document.getElementById('hamburgerBtn').classList.remove('active');
+        });
+    });
+
+    // ===== USER DROPDOWN =====
+    function toggleDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        const btn = document.querySelector('.user-btn');
+        const overlay = document.getElementById('dropdownOverlay');
+        
+        dropdown.classList.toggle('show');
+        btn.classList.toggle('active');
+        
+        if (dropdown.classList.contains('show')) {
+            if (!overlay) {
+                const newOverlay = document.createElement('div');
+                newOverlay.id = 'dropdownOverlay';
+                newOverlay.className = 'dropdown-overlay show';
+                newOverlay.onclick = closeDropdown;
+                document.body.appendChild(newOverlay);
+            } else {
+                overlay.classList.add('show');
+            }
+        } else {
+            if (overlay) overlay.classList.remove('show');
+        }
+    }
+
+    function closeDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        const btn = document.querySelector('.user-btn');
+        const overlay = document.getElementById('dropdownOverlay');
+        
+        dropdown.classList.remove('show');
+        btn.classList.remove('active');
+        if (overlay) overlay.classList.remove('show');
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeDropdown();
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.user-dropdown')) {
+            closeDropdown();
+        }
+    });
+
+    // ===== HANDLE LOGOUT =====
+    function handleLogout() {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+    }
+
+    // ===== UPDATE CART BADGE =====
+    function updateCartBadge() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const count = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+        const badge = document.getElementById('cartCount');
+        if (badge) badge.textContent = count;
+    }
+
+    // ===== CHECK LOGIN =====
+    function checkLogin() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = localStorage.getItem('token');
+        if (user && token) {
+            updateNavbarUser(user);
+        }
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartBadge();
+        checkLogin();
+    });
+</script>
+
+</body>
+</html>

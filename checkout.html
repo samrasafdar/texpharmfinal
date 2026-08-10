@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Tex-Pharm Inc</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: #eef4ff; 
+            color: #1a2a4a; 
+            padding-top: 80px; 
+            transition: background 0.3s, color 0.3s; 
+            min-height: 100vh;
+        }
+        body.dark-mode { 
+            background: #12182a; 
+            color: #e8edf5; 
+        }
+
+        body.dark-mode .card { background: #1e2a4a; }
+        body.dark-mode .card h2 { color: #c0d4f0; }
+        body.dark-mode .card h3 { color: #c0d4f0; }
+        body.dark-mode .order-summary { background: #2a3a5a !important; }
+        body.dark-mode .order-summary h3 { color: #c0d4f0 !important; }
+        body.dark-mode .currency-selector { background: #2a3a5a; }
+        body.dark-mode .currency-selector select { background: #3a4a6a; color: #e8edf5; border-color: #4a5a7a; }
+        body.dark-mode .payment-option { border-color: #3a4a6a; }
+        body.dark-mode .payment-option:hover { border-color: #6ea8fe; background: rgba(110,168,254,0.08); }
+        body.dark-mode .payment-option.selected { border-color: #6ea8fe; background: rgba(110,168,254,0.12); }
+        body.dark-mode .form-group input, 
+        body.dark-mode .form-group textarea, 
+        body.dark-mode .form-group select { 
+            background: #2a3a5a; 
+            color: #e8edf5; 
+            border-color: #3a4a6a; 
+        }
+        body.dark-mode .form-group input:focus, 
+        body.dark-mode .form-group textarea:focus { 
+            border-color: #6ea8fe; 
+        }
+        body.dark-mode .pay-btn { background: #1a3a6a; color: white; }
+        body.dark-mode .pay-btn:hover { background: #2a5a8a; }
+        body.dark-mode .navbar { background: linear-gradient(135deg, #1a3050, #0d2040) !important; }
+        body.dark-mode .navbar .logo a { color: #d0e4ff; }
+        body.dark-mode .navbar .logo a i { color: #6ea8fe; }
+        body.dark-mode .navbar .logo a span { color: #6ea8fe; }
+        body.dark-mode .nav-links li a { color: rgba(200, 215, 240, 0.9); }
+        body.dark-mode .nav-links li a:hover { background: rgba(100, 150, 255, 0.15); color: white; }
+        body.dark-mode .dark-toggle-nav { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.05); }
+        body.dark-mode .dark-toggle-nav .toggle-text { color: rgba(200, 215, 240, 0.9); }
+        body.dark-mode .user-avatar-wrapper .user-name { color: #d0e4ff; }
+        body.dark-mode .user-avatar-circle { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+        body.dark-mode .dropdown-menu { background: #1e2a4a; box-shadow: 0 10px 50px rgba(0,0,0,0.4); }
+        body.dark-mode .dropdown-avatar-circle { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+        body.dark-mode .dropdown-info h4 { color: #d0e4ff; }
+        body.dark-mode .dropdown-item { color: #e8edf5; }
+        body.dark-mode .dropdown-item:hover { background: #0a1a30; color: #6ea8fe; }
+        body.dark-mode .dropdown-item:hover i { color: #6ea8fe; }
+        body.dark-mode .dropdown-divider { background: #2a3a5a; }
+        body.dark-mode .footer { background: linear-gradient(135deg, #1a3050, #0d2040) !important; color: #d0e4ff; }
+        body.dark-mode .footer-section h3 { color: #c0d4f0; }
+        body.dark-mode .footer-section p { color: #a8b8d8; }
+        body.dark-mode .footer-section ul li a { color: rgba(200, 215, 240, 0.8); }
+        body.dark-mode .footer-section ul li a:hover { color: #ff6b35; }
+        body.dark-mode .social-links a { background: rgba(255, 255, 255, 0.08); color: #c0d4f0; }
+        body.dark-mode .footer-bottom { border-top-color: rgba(255, 255, 255, 0.08); color: rgba(200, 215, 240, 0.4); }
+        body.dark-mode .toggle-track { background: rgba(255, 255, 255, 0.1); }
+        body.dark-mode .hamburger span { background: #c0d4f0; }
+
+        .navbar { 
+            background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important; 
+            padding: 0 25px; 
+            height: 65px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            z-index: 9998; 
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3); 
+            box-shadow: 0 4px 20px rgba(11, 94, 215, 0.1);
+            transition: all 0.3s ease; 
+        }
+        .navbar.scrolled { height: 60px; }
+
+        .logo a { 
+            font-size: 1.3rem; 
+            font-weight: 800; 
+            color: #0a2a4a; 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+        }
+        .logo a i { font-size: 1.4rem; color: #0a2a4a; }
+        .logo a span { color: #0a2a4a; }
+
+        .nav-links { 
+            display: flex; 
+            align-items: center; 
+            gap: 3px; 
+            list-style: none; 
+        }
+        .nav-links li a { 
+            color: #0a2a4a; 
+            text-decoration: none; 
+            padding: 5px 12px; 
+            font-weight: 500; 
+            font-size: 0.8rem; 
+            border-radius: 6px; 
+            transition: all 0.3s; 
+            display: flex; 
+            align-items: center; 
+            gap: 4px; 
+        }
+        .nav-links li a:hover, 
+        .nav-links li a.active { 
+            background: rgba(255, 255, 255, 0.35); 
+            color: #003366; 
+        }
+
+        .nav-cart { position: relative; }
+        .cart-badge { 
+            background: #ff6b35; 
+            color: white; 
+            border-radius: 50%; 
+            padding: 1px 6px; 
+            font-size: 0.6rem; 
+            font-weight: 700; 
+            position: absolute; 
+            top: -4px; 
+            right: -6px; 
+        }
+
+        .dark-toggle-nav { 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+            margin-left: 8px; 
+            padding: 4px 10px; 
+            background: rgba(255, 255, 255, 0.25); 
+            border-radius: 50px; 
+            cursor: pointer; 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            transition: all 0.3s; 
+        }
+        .dark-toggle-nav:hover { background: rgba(255, 255, 255, 0.4); }
+        .dark-toggle-nav .toggle-icon { font-size: 0.9rem; }
+        .dark-toggle-nav .toggle-text { 
+            font-size: 0.65rem; 
+            font-weight: 500; 
+            color: #0a2a4a; 
+        }
+
+        .toggle-track { 
+            position: relative; 
+            width: 30px; 
+            height: 16px; 
+            background: rgba(255, 255, 255, 0.25); 
+            border-radius: 8px; 
+            transition: all 0.3s; 
+            flex-shrink: 0; 
+            cursor: pointer; 
+        }
+        .toggle-track.active { background: #ff6b35; }
+        .toggle-track .toggle-thumb { 
+            position: absolute; 
+            top: 2px; 
+            left: 2px; 
+            width: 12px; 
+            height: 12px; 
+            background: white; 
+            border-radius: 50%; 
+            transition: all 0.3s; 
+        }
+        .toggle-track.active .toggle-thumb { transform: translateX(14px); }
+
+        .hamburger { 
+            display: none; 
+            flex-direction: column; 
+            gap: 4px; 
+            cursor: pointer; 
+            background: none; 
+            border: none; 
+            padding: 4px; 
+        }
+        .hamburger span { 
+            width: 22px; 
+            height: 2.5px; 
+            background: #0a2a4a; 
+            border-radius: 2px; 
+            transition: all 0.3s; 
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+        .nav-user { position: relative; margin-left: 5px; }
+        .user-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 10px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .user-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+        .user-avatar-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0a2a4a;
+        }
+        .user-avatar-circle {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .user-btn:hover .user-avatar-circle {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(2,44,107,0.3);
+        }
+        .user-avatar-wrapper .user-name { font-weight: 600; font-size: 0.9rem; color: #0a2a4a; }
+        .user-avatar-wrapper .dropdown-arrow { font-size: 0.7rem; color: #8899bb; transition: transform 0.3s; }
+        .user-btn.active .dropdown-arrow { transform: rotate(180deg); }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 280px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 15px 50px rgba(11, 94, 215, 0.15);
+            padding: 10px 0;
+            margin-top: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            border: 1px solid rgba(176, 208, 232, 0.3);
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .dropdown-header {
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, #dce8ff, #c8dcff);
+            margin: 0 0 6px 0;
+            border-radius: 12px 12px 0 0;
+        }
+        .dropdown-avatar-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+        .dropdown-info h4 { font-size: 0.95rem; font-weight: 600; color: #022c6b; }
+        .dropdown-info p { font-size: 0.8rem; color: #6688aa; margin-top: 2px; }
+
+        .dropdown-divider { height: 1px; background: linear-gradient(to right, #b0d0e8, transparent); margin: 6px 16px; }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: #1a2a4a;
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin: 2px 8px;
+            border-radius: 10px;
+        }
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #dce8ff, #c8dcff);
+            color: #022c6b;
+        }
+        .dropdown-item i { width: 22px; color: #6688aa; font-size: 1rem; }
+        .dropdown-item:hover i { color: #022c6b; }
+
+        .dropdown-item.logout-item { color: #dc3545; margin-top: 4px; }
+        .dropdown-item.logout-item i { color: #dc3545; }
+        .dropdown-item.logout-item:hover { background: #fee; color: #dc3545; }
+        .dropdown-item.logout-item:hover i { color: #dc3545; }
+
+        .dropdown-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 9998;
+        }
+        .dropdown-overlay.show { display: block; }
+
+        .checkout-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .card { 
+            background: white; 
+            padding: 35px; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); 
+            transition: background 0.3s;
+        }
+        .card h2 { color: #022c6b; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; font-size: 1.5rem; }
+        body.dark-mode .card h2 { color: #c0d4f0; }
+        .card h3 { color: #022c6b; font-size: 1.1rem; }
+        body.dark-mode .card h3 { color: #c0d4f0; }
+
+        .order-summary { 
+            background: #f0f4ff; 
+            padding: 18px; 
+            border-radius: 10px; 
+            margin-bottom: 20px; 
+            transition: background 0.3s;
+        }
+        .order-total { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 12px 0 0; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            border-top: 2px solid #022c6b; 
+            margin-top: 8px; 
+            color: #022c6b; 
+        }
+        body.dark-mode .order-total { border-top-color: #6ea8fe; color: #6ea8fe; }
+
+        .currency-selector {
+            margin: 15px 0;
+            padding: 12px 15px;
+            background: #f0f4ff;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .currency-selector select {
+            padding: 8px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+            max-width: 280px;
+            background: white;
+            color: #1a2a4a;
+            font-size: 0.9rem;
+            transition: border 0.3s;
+        }
+        .currency-selector select:focus { border-color: #022c6b; outline: none; }
+
+        .payment-option {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 16px 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            transition: all 0.3s;
+            background: #f9fcff;
+        }
+        .payment-option.selected {
+            border-color: #022c6b;
+            background: rgba(2,44,107,0.05);
+        }
+        body.dark-mode .payment-option {
+            background: #1e2a4a;
+            border-color: #3a4a6a;
+        }
+        body.dark-mode .payment-option.selected {
+            border-color: #6ea8fe;
+            background: rgba(110,168,254,0.08);
+        }
+        .payment-option h3 {
+            margin: 0 0 4px 0;
+            font-size: 1.1rem;
+            color: #022c6b;
+        }
+        body.dark-mode .payment-option h3 { color: #c0d4f0; }
+        .payment-option p {
+            margin: 2px 0;
+            font-size: 0.9rem;
+        }
+        .payment-option strong { font-weight: 600; }
+        .payment-option input[type="file"] {
+            margin-top: 8px;
+            padding: 6px 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-weight: 500; margin-bottom: 4px; font-size: 0.85rem; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: border 0.3s;
+            background: white;
+            color: #1a2a4a;
+            font-size: 0.9rem;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: #022c6b; outline: none; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .pay-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .pay-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(2,44,107,0.3); }
+        .pay-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        body.dark-mode .pay-btn { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+
+        .error { color: #dc3545; text-align: center; margin-top: 10px; display: none; padding: 10px; background: rgba(220,53,69,0.1); border-radius: 8px; }
+        .success { color: #28a745; text-align: center; margin-top: 10px; display: none; padding: 10px; background: rgba(40,167,69,0.1); border-radius: 8px; }
+
+        .order-confirm-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        .order-confirm-overlay.show { display: flex; }
+
+        .order-confirm-box {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 20px;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: popIn 0.4s ease;
+        }
+        body.dark-mode .order-confirm-box {
+            background: #1e2a4a;
+            color: #e8edf5;
+        }
+        .order-confirm-box .icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .order-confirm-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #022c6b;
+        }
+        body.dark-mode .order-confirm-box h2 { color: #c0d4f0; }
+        .order-confirm-box p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        body.dark-mode .order-confirm-box p { color: #a8b8d8; }
+        .order-confirm-box .btn-close-confirm {
+            padding: 10px 35px;
+            background: linear-gradient(135deg, #022c6b, #0a4ca0);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        .order-confirm-box .btn-close-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(2,44,107,0.3);
+        }
+        body.dark-mode .order-confirm-box .btn-close-confirm {
+            background: linear-gradient(135deg, #1a3a6a, #2a5a8a);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .order-confirmed-banner {
+            display: none;
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin: 15px 0;
+            text-align: center;
+            animation: popIn 0.4s ease;
+        }
+        body.dark-mode .order-confirmed-banner {
+            background: linear-gradient(135deg, #1a3a2a, #1a4a2a);
+            border-color: #28a745;
+        }
+        .order-confirmed-banner .icon {
+            font-size: 2.5rem;
+            color: #28a745;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .order-confirmed-banner h3 {
+            color: #155724;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        body.dark-mode .order-confirmed-banner h3 { color: #7ddfa0; }
+        .order-confirmed-banner p {
+            color: #155724;
+            margin: 4px 0 0;
+            font-size: 0.9rem;
+        }
+        body.dark-mode .order-confirmed-banner p { color: #a8d8b8; }
+
+        .footer { 
+            background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important; 
+            color: #0a2a4a; 
+            padding: 40px 25px 15px; 
+            margin-top: 40px; 
+            border-top: 3px solid rgba(255, 255, 255, 0.3);
+            transition: background 0.3s, color 0.3s;
+        }
+        .footer-content { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 25px; 
+            margin-bottom: 25px; 
+        }
+        .footer-section h3 { 
+            color: #0a2a4a; 
+            font-size: 1rem; 
+            margin-bottom: 12px; 
+            position: relative; 
+        }
+        .footer-section h3::after { 
+            content: ''; 
+            display: block; 
+            width: 25px; 
+            height: 3px; 
+            background: #ff6b35; 
+            margin-top: 5px; 
+            border-radius: 2px; 
+        }
+        .footer-section p { 
+            color: #0a2a4a; 
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 6px; }
+        .footer-section ul li a { 
+            color: #0a2a4a; 
+            text-decoration: none; 
+            transition: all 0.3s; 
+            font-size: 0.85rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 5px; 
+        }
+        .footer-section ul li a:hover { 
+            color: #ff6b35; 
+            padding-left: 4px; 
+        }
+        .footer-section ul li a i { width: 16px; color: #ff6b35; }
+        .social-links {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            color: #0a2a4a;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .social-links a:hover {
+            background: #ff6b35;
+            color: white;
+            transform: translateY(-3px) scale(1.1);
+        }
+        .footer-bottom { 
+            border-top: 1px solid rgba(10, 42, 74, 0.15); 
+            padding-top: 12px; 
+            text-align: center; 
+            font-size: 0.8rem; 
+            color: rgba(10, 42, 74, 0.6); 
+        }
+        .footer-bottom a { color: #ff6b35; text-decoration: none; }
+
+        @media (max-width: 992px) {
+            .card { padding: 25px; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container { margin: 20px auto; }
+            .card { padding: 20px; }
+            .card h2 { font-size: 1.3rem; }
+            .nav-links { 
+                display: none; 
+                flex-direction: column; 
+                position: fixed; 
+                top: 65px; 
+                left: 0; 
+                right: 0; 
+                background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important; 
+                padding: 15px; 
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+                z-index: 9997;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links li { width: 100%; }
+            .nav-links li a { 
+                color: #0a2a4a !important; 
+                width: 100%; 
+                text-align: center; 
+                padding: 10px; 
+            }
+            body.dark-mode .nav-links li a { color: rgba(200, 215, 240, 0.9) !important; }
+            .hamburger { display: flex; }
+            .dark-toggle-nav {
+                margin-left: 0;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.2);
+                padding: 5px 12px;
+            }
+            .dark-toggle-nav .toggle-text { color: #0a2a4a !important; }
+            body.dark-mode .dark-toggle-nav .toggle-text { color: rgba(200, 215, 240, 0.9) !important; }
+            .user-avatar-wrapper .user-name { display: none; }
+            .user-avatar-circle { width: 32px; height: 32px; font-size: 0.75rem; }
+            .dropdown-menu { min-width: 250px; right: -10px; }
+            .currency-selector select { max-width: 100%; }
+            .payment-option { flex-wrap: wrap; }
+            .payment-option .payment-desc { font-size: 0.75rem; }
+        }
+
+        @media (max-width: 480px) {
+            .card { padding: 15px; }
+            .card h2 { font-size: 1.1rem; }
+            .form-group input { font-size: 0.8rem; padding: 8px 12px; }
+            .pay-btn { font-size: 0.9rem; padding: 12px; }
+            .user-avatar-wrapper .user-name { display: none; }
+            .user-avatar-circle { width: 28px; height: 28px; font-size: 0.65rem; }
+            .dropdown-menu { min-width: 220px; right: -15px; }
+            .payment-option { padding: 10px 14px; }
+            .order-confirm-box { padding: 25px 20px; }
+            .order-confirm-box .icon { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="mainNavbar">
+    <div class="logo"><a href="index.html"><i class="fas fa-industry"></i> Tex<span>Pharm</span></a></div>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+        <li><a href="product.html"><i class="fas fa-box"></i> Product</a></li>
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li class="nav-cart"><a href="checkout.html" class="active"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-badge" id="cartCount">0</span></a></li>
+        
+        <li class="nav-user">
+            <div class="user-dropdown">
+                <button class="user-btn" onclick="toggleDropdown()">
+                    <div class="user-avatar-wrapper">
+                        <div class="user-avatar-circle" id="userAvatarCircle">
+                            <span id="userInitials">U</span>
+                        </div>
+                        <span class="user-name" id="userNameDisplay">User</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                </button>
+                
+                <div class="dropdown-menu" id="userDropdown">
+                    <div class="dropdown-header">
+                        <div class="dropdown-avatar-circle" id="dropdownAvatarCircle">
+                            <span id="dropdownInitials">U</span>
+                        </div>
+                        <div class="dropdown-info">
+                            <h4 id="dropdownName">User</h4>
+                            <p id="dropdownEmail">user@email.com</p>
+                        </div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout-item" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </li>
+        
+        <li>
+            <div class="dark-toggle-nav" onclick="toggleDarkMode()">
+                <span class="toggle-icon" id="toggleIcon">🌙</span>
+                <span class="toggle-text" id="toggleText">Dark</span>
+                <div class="toggle-track" id="toggleTrack">
+                    <div class="toggle-thumb"></div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<!-- ===== ORDER CONFIRMATION POPUP ===== -->
+<div class="order-confirm-overlay" id="orderConfirmOverlay">
+    <div class="order-confirm-box">
+        <div class="icon">✅</div>
+        <h2>Payment Received!</h2>
+        <p>Your payment has been confirmed and your order has been placed successfully with <strong>Bank Alfalah</strong>.</p>
+        <button class="btn-close-confirm" onclick="closeOrderConfirm()">OK, Got It!</button>
+    </div>
+</div>
+
+<!-- ===== CHECKOUT ===== -->
+<div class="checkout-container">
+    <div class="card">
+        <h2><i class="fas fa-shopping-cart" style="color:#ff6b35;"></i> Checkout</h2>
+
+        <div class="order-confirmed-banner" id="orderConfirmedBanner">
+            <span class="icon">✅</span>
+            <h3>Payment Confirmed!</h3>
+            <p>Your payment has been verified and order is now confirmed with Bank Alfalah.</p>
+        </div>
+
+        <div class="currency-selector">
+            <label style="font-weight:600; margin-right:12px; font-size:0.9rem;">💱 Currency:</label>
+            <select disabled>
+                <option selected>PKR</option>
+            </select>
+        </div>
+
+        <div class="order-summary">
+            <h3 style="margin-bottom:12px;">📦 Order Summary</h3>
+            <div id="orderItems"></div>
+            <div class="order-total">
+                <span>Total:</span>
+                <span><span id="currencySymbol">Rs.</span><span id="totalAmount">0.00</span></span>
+            </div>
+        </div>
+
+        <div class="address-form" style="margin:15px 0;">
+            <h3 style="margin-bottom:12px;"><i class="fas fa-map-marker-alt" style="color:#ff6b35;"></i> Shipping Address</h3>
+            <div class="form-group"><label>Full Name *</label><input type="text" id="fullName" placeholder="Enter your full name" required></div>
+            <div class="form-group"><label>Email *</label><input type="email" id="email" placeholder="Enter your email" required></div>
+            <div class="form-group"><label>Phone *</label><input type="tel" id="phone" placeholder="Enter your phone number" required></div>
+            <div class="form-group"><label>Street Address *</label><input type="text" id="street" placeholder="Enter street address" required></div>
+            <div class="form-row">
+                <div class="form-group"><label>City *</label><input type="text" id="city" placeholder="City" required></div>
+                <div class="form-group"><label>State *</label><input type="text" id="state" placeholder="State" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Country *</label>
+                    <select id="country" required>
+                        <option value="">Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="CA">Canada</option>
+                        <option value="AU">Australia</option>
+                        <option value="DE">Germany</option>
+                        <option value="FR">France</option>
+                        <option value="AE">UAE</option>
+                        <option value="SA">Saudi Arabia</option>
+                        <option value="IN">India</option>
+                        <option value="PK" selected>Pakistan</option>
+                        <option value="SG">Singapore</option>
+                        <option value="MY">Malaysia</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>ZIP Code *</label><input type="text" id="zipCode" placeholder="ZIP Code" required></div>
+            </div>
+        </div>
+
+        <!-- ===== PAYMENT: Bank Alfalah ONLY ===== -->
+        <div class="payment-option selected" id="paymentSection">
+            <h3><i class="fas fa-university" style="color:#022c6b; margin-right:8px;"></i> Bank Alfalah</h3>
+            <p><strong>Account Name:</strong> Tex Pharm</p>
+            <p><strong>Account Number:</strong> __________________</p>
+            <p style="color:#dc3545; font-weight:700; margin:6px 0;">⚠️ Without advance payment your order will NOT be confirmed.</p>
+            <label style="font-weight:500; margin-top:6px;">Upload Payment Screenshot *</label>
+            <input type="file" accept="image/*" id="paymentScreenshot" style="margin-top:4px;" required>
+            <p style="font-size:0.8rem; color:#888; margin-top:4px;">Please upload payment proof to confirm your order</p>
+        </div>
+
+        <div id="errorMsg" class="error"></div>
+        <div id="successMsg" class="success"></div>
+
+        <button class="pay-btn" id="payBtn" onclick="handlePlaceOrder()">
+            <i class="fas fa-lock"></i> Place Order
+        </button>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3><i class="fas fa-industry"></i> Tex-Pharm Inc</h3>
+            <p>Premium textile manufacturing and chemical processing solutions since 2010. Trusted by industries worldwide.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3><i class="fas fa-link"></i> Quick Links</h3>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-chevron-right"></i> About</a></li>
+                <li><a href="services.html"><i class="fas fa-chevron-right"></i> Services</a></li>
+                <li><a href="product.html"><i class="fas fa-chevron-right"></i> Product</a></li>
+                <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3><i class="fas fa-address-card"></i> Contact Info</h3>
+            <ul>
+                <li><a href="tel:+923006694285"><i class="fas fa-phone"></i> +92 300 6694285</a></li>
+                <li><a href="mailto:info@tex-pharm.com"><i class="fas fa-envelope"></i> info@tex-pharm.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 <a href="index.html">Tex-Pharm Inc</a>. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // ============================================
+    // AVATAR FUNCTIONS
+    // ============================================
+    function getUserInitials(name) {
+        if (!name) return 'U';
+        const parts = name.trim().split(' ');
+        if (parts.length >= 2) {
+            return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        }
+        return name.substring(0, 2).toUpperCase();
+    }
+
+    function getAvatarColor(email) {
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'];
+        let hash = 0;
+        for (let i = 0; i < email.length; i++) {
+            hash = email.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return colors[Math.abs(hash) % colors.length];
+    }
+
+    function updateNavbarUser(user) {
+        if (!user) return;
+        const initials = getUserInitials(user.name);
+        const color = getAvatarColor(user.email);
+        
+        const navCircle = document.getElementById('userAvatarCircle');
+        navCircle.style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+        document.getElementById('userInitials').textContent = initials;
+        document.getElementById('userNameDisplay').textContent = user.name;
+        
+        const dropCircle = document.getElementById('dropdownAvatarCircle');
+        dropCircle.style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+        document.getElementById('dropdownInitials').textContent = initials;
+        document.getElementById('dropdownName').textContent = user.name;
+        document.getElementById('dropdownEmail').textContent = user.email;
+    }
+
+    // ============================================
+    // CART DATA - SAVED IN LOCAL STORAGE
+    // ============================================
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    let exchangeRate = 1;
+    let orderPlaced = false;
+
+    // ============================================
+    // RENDER ORDER ITEMS
+    // ============================================
+    function renderOrderItems() {
+        const container = document.getElementById('orderItems');
+        if (cart.length === 0) {
+            container.innerHTML = '<p style="color:#999;">Your cart is empty. <a href="product.html" style="color:#022c6b; font-weight:600;">Shop now</a></p>';
+            document.getElementById('payBtn').disabled = true;
+            return;
+        }
+        document.getElementById('payBtn').disabled = false;
+        container.innerHTML = cart.map((item, index) => `
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:6px 0; border-bottom:1px solid rgba(0,0,0,0.06);">
+                <span style="font-size:0.9rem; flex:1;">${item.name} x ${item.quantity}</span>
+                <span style="font-size:0.9rem;">Rs. ${(item.price * item.quantity * exchangeRate).toFixed(2)}</span>
+                <button onclick="removeCartItem(${index})" title="Remove item" style="background:none; border:none; color:#dc3545; cursor:pointer; font-size:0.95rem; padding:2px 4px; line-height:1;">
+                    <i class="fas fa-times-circle"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+
+    function removeCartItem(index) {
+        cart.splice(index, 1);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        updateCartBadge();
+        document.getElementById('totalAmount').textContent = (total * exchangeRate).toFixed(2);
+        renderOrderItems();
+        if (cart.length === 0) showToast('Cart is now empty', 'info');
+        else showToast('Item removed from cart', 'info');
+    }
+
+    function updateCartBadge() {
+        const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cartCount').textContent = cartData.reduce((s, i) => s + i.quantity, 0);
+    }
+
+    // ============================================
+    // TOAST
+    // ============================================
+    function showToast(message, type = 'success') {
+        const existing = document.querySelector('.toast-msg');
+        if (existing) existing.remove();
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.style.cssText = `
+            position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+            background: ${type === 'error' ? '#dc3545' : type === 'info' ? '#022c6b' : '#28a745'};
+            color: white; padding: 12px 25px; border-radius: 10px; font-weight: 600;
+            z-index: 9999; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0; visibility: hidden; transition: all 0.4s;
+        `;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.opacity = '1';
+            toast.style.visibility = 'visible';
+        }, 50);
+        
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.visibility = 'hidden';
+            setTimeout(() => toast.remove(), 400);
+        }, 3000);
+    }
+
+    // ============================================
+    // ORDER CONFIRMATION
+    // ============================================
+    function showOrderConfirm() {
+        document.getElementById('orderConfirmOverlay').classList.add('show');
+    }
+
+    function closeOrderConfirm() {
+        document.getElementById('orderConfirmOverlay').classList.remove('show');
+        document.getElementById('orderConfirmedBanner').style.display = 'block';
+        document.getElementById('paymentSection').style.display = 'none';
+        document.getElementById('payBtn').style.display = 'none';
+        document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(el => {
+            el.disabled = true;
+        });
+        document.querySelector('.currency-selector').style.opacity = '0.5';
+    }
+
+    // ============================================
+    // PLACE ORDER - REQUIRES PAYMENT SCREENSHOT
+    // Sends a real order to the backend (POST /api/orders)
+    // ============================================
+  const API_URL = 'https://bubbly-elegance-production-1dff.up.railway.app/api';
+    async function handlePlaceOrder() {
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+
+        errorMsg.style.display = 'none';
+        successMsg.style.display = 'none';
+        errorMsg.textContent = '';
+        successMsg.textContent = '';
+
+        if (orderPlaced) {
+            errorMsg.textContent = '✅ Order already placed!';
+            errorMsg.style.color = '#28a745';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        if (cart.length === 0) {
+            errorMsg.textContent = '❌ Your cart is empty. Please add items to checkout.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        // CHECK: Payment screenshot uploaded
+        const fileInput = document.getElementById('paymentScreenshot');
+        if (!fileInput.files || fileInput.files.length === 0) {
+            errorMsg.textContent = '❌ Please upload payment screenshot first! Without advance payment your order will NOT be confirmed.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        // Validate address fields
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const street = document.getElementById('street').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const state = document.getElementById('state').value.trim();
+        const country = document.getElementById('country').value;
+        const zipCode = document.getElementById('zipCode').value.trim();
+
+        if (!fullName || !email || !phone || !street || !city || !state || !country || !zipCode) {
+            errorMsg.textContent = '❌ Please fill all address fields.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            errorMsg.textContent = '❌ Please login to place an order.';
+            errorMsg.style.display = 'block';
+            setTimeout(() => window.location.href = 'index.html', 1500);
+            return;
+        }
+
+        // --- PROCEED WITH ORDER ---
+        const btn = document.getElementById('payBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Placing Order...';
+
+        try {
+            const items = cart.map(item => ({
+                product: item._id,
+                quantity: item.quantity
+            }));
+
+            const formData = new FormData();
+            formData.append('items', JSON.stringify(items));
+            formData.append('shippingAddress', JSON.stringify({ street, city, state, country, zipCode }));
+            formData.append('notes', `Full Name: ${fullName}, Email: ${email}, Phone: ${phone}`);
+            formData.append('paymentScreenshot', fileInput.files[0]);
+
+            const res = await fetch(`${API_URL}/orders`, {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData
+            });
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+                throw new Error(data.message || 'Failed to place order');
+            }
+
+            // Clear cart only after the order is confirmed by the backend
+            localStorage.removeItem('cart');
+            cart = [];
+            orderPlaced = true;
+            updateCartBadge();
+            document.getElementById('totalAmount').textContent = '0.00';
+            renderOrderItems();
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-lock"></i> Place Order';
+
+            showOrderConfirm();
+        } catch (err) {
+            console.error('Order placement failed:', err);
+            errorMsg.textContent = '❌ ' + (err.message || 'Failed to place order. Please try again.');
+            errorMsg.style.display = 'block';
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-lock"></i> Place Order';
+        }
+    }
+
+    // ============================================
+    // DARK MODE
+    // ============================================
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const icon = document.getElementById('toggleIcon');
+        const text = document.getElementById('toggleText');
+        const track = document.getElementById('toggleTrack');
+        if (document.body.classList.contains('dark-mode')) {
+            icon.textContent = '☀️'; 
+            text.textContent = 'Light'; 
+            track.classList.add('active');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            icon.textContent = '🌙'; 
+            text.textContent = 'Dark'; 
+            track.classList.remove('active');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    function toggleMobileMenu() {
+        document.getElementById('navLinks').classList.toggle('open');
+        document.getElementById('hamburgerBtn').classList.toggle('active');
+    }
+
+    function toggleDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        const btn = document.querySelector('.user-btn');
+        const overlay = document.getElementById('dropdownOverlay');
+        dropdown.classList.toggle('show');
+        btn.classList.toggle('active');
+        if (dropdown.classList.contains('show')) {
+            if (!overlay) {
+                const newOverlay = document.createElement('div');
+                newOverlay.id = 'dropdownOverlay';
+                newOverlay.className = 'dropdown-overlay show';
+                newOverlay.onclick = closeDropdown;
+                document.body.appendChild(newOverlay);
+            } else overlay.classList.add('show');
+        } else {
+            if (overlay) overlay.classList.remove('show');
+        }
+    }
+
+    function closeDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        const btn = document.querySelector('.user-btn');
+        const overlay = document.getElementById('dropdownOverlay');
+        dropdown.classList.remove('show');
+        btn.classList.remove('active');
+        if (overlay) overlay.classList.remove('show');
+    }
+
+    function handleLogout() {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+    }
+
+    function handleNavbarScroll() {
+        const navbar = document.getElementById('mainNavbar');
+        if (window.scrollY > 50) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+    }
+
+    function checkLoginAndFillUser() {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = localStorage.getItem('token');
+        
+        if (!user || !token) {
+            showToast('Please login to checkout', 'error');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+            return;
+        }
+        
+        updateNavbarUser(user);
+        
+        document.getElementById('fullName').value = user.name || '';
+        document.getElementById('email').value = user.email || '';
+        document.getElementById('phone').value = user.phone || '';
+        document.getElementById('street').value = user.address || '';
+        if (user.city) document.getElementById('city').value = user.city;
+        if (user.state) document.getElementById('state').value = user.state;
+        if (user.country) document.getElementById('country').value = user.country;
+        if (user.zipCode) document.getElementById('zipCode').value = user.zipCode;
+    }
+
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const icon = document.getElementById('toggleIcon');
+        const text = document.getElementById('toggleText');
+        const track = document.getElementById('toggleTrack');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            if (icon) icon.textContent = '☀️';
+            if (text) text.textContent = 'Light';
+            if (track) track.classList.add('active');
+        } else {
+            document.body.classList.remove('dark-mode');
+            if (icon) icon.textContent = '🌙';
+            if (text) text.textContent = 'Dark';
+            if (track) track.classList.remove('active');
+        }
+    }
+
+    // ============================================
+    // INITIALIZE
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+        loadTheme();
+        updateCartBadge();
+        checkLoginAndFillUser();
+
+        document.getElementById('currencySymbol').textContent = 'Rs.';
+        document.getElementById('totalAmount').textContent = total.toFixed(2);
+        
+        renderOrderItems();
+
+        window.addEventListener('scroll', handleNavbarScroll);
+        handleNavbarScroll();
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.user-dropdown')) closeDropdown();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeDropdown();
+        });
+
+        console.log('✅ Checkout page loaded - Payment required');
+        console.log('📁 Admin orders:', JSON.parse(localStorage.getItem('adminOrders')) || []);
+    });
+
+    window.toggleDarkMode = toggleDarkMode;
+    window.toggleMobileMenu = toggleMobileMenu;
+    window.toggleDropdown = toggleDropdown;
+    window.closeDropdown = closeDropdown;
+    window.handleLogout = handleLogout;
+    window.updateCartBadge = updateCartBadge;
+    window.handlePlaceOrder = handlePlaceOrder;
+    window.removeCartItem = removeCartItem;
+    window.closeOrderConfirm = closeOrderConfirm;
+</script>
+
+</body>
+</html>

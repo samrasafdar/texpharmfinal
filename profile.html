@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Tex-Pharm Inc</title>
+    <link rel="icon" href="logo.png" type="image">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #eef4ff;
+            color: #1a2a4a;
+            padding-top: 80px;
+            transition: background 0.3s, color 0.3s;
+            min-height: 100vh;
+        }
+        body.dark-mode { background: #12182a; color: #e8edf5; }
+        body.dark-mode .navbar { background: linear-gradient(135deg, #1a3050, #0d2040) !important; }
+        body.dark-mode .navbar .logo a { color: #d0e4ff; }
+        body.dark-mode .navbar .logo a i { color: #6ea8fe; }
+        body.dark-mode .navbar .logo a span { color: #6ea8fe; }
+        body.dark-mode .nav-links li a { color: rgba(200, 215, 240, 0.9); }
+        body.dark-mode .nav-links li a:hover { background: rgba(100, 150, 255, 0.15); color: white; }
+        body.dark-mode .dark-toggle-nav { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.05); }
+        body.dark-mode .dark-toggle-nav .toggle-text { color: rgba(200, 215, 240, 0.9); }
+        body.dark-mode .user-avatar-wrapper .user-name { color: #d0e4ff; }
+        body.dark-mode .user-avatar-circle { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+        body.dark-mode .dropdown-menu { background: #1e2a4a; box-shadow: 0 10px 50px rgba(0,0,0,0.4); }
+        body.dark-mode .dropdown-avatar-circle { background: linear-gradient(135deg, #1a3a6a, #2a5a8a); }
+        body.dark-mode .dropdown-info h4 { color: #d0e4ff; }
+        body.dark-mode .dropdown-item { color: #e8edf5; }
+        body.dark-mode .dropdown-item:hover { background: #0a1a30; color: #6ea8fe; }
+        body.dark-mode .dropdown-item:hover i { color: #6ea8fe; }
+        body.dark-mode .dropdown-divider { background: #2a3a5a; }
+        body.dark-mode .toggle-track { background: rgba(255, 255, 255, 0.1); }
+        body.dark-mode .hamburger span { background: #c0d4f0; }
+        body.dark-mode .card { background: #1e2a4a; }
+        body.dark-mode .card h2, body.dark-mode .card h3 { color: #c0d4f0; }
+        body.dark-mode .form-group input, body.dark-mode .form-group textarea {
+            background: #2a3a5a; color: #e8edf5; border-color: #3a4a6a;
+        }
+        body.dark-mode .order-item { background: #2a3a5a; }
+        body.dark-mode .tab-btn { color: #c0d4f0; }
+        body.dark-mode .tab-btn.active { background: #2a3a5a; color: #6ea8fe; }
+
+        .navbar {
+            background: linear-gradient(135deg, #b0d0e8, #7ab0d6) !important;
+            padding: 0 25px; height: 65px; display: flex; align-items: center;
+            justify-content: space-between; position: fixed; top: 0; left: 0; right: 0;
+            z-index: 9998; border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(11, 94, 215, 0.1); transition: all 0.3s ease;
+        }
+        .navbar.scrolled { height: 60px; }
+        .logo a { font-size: 1.3rem; font-weight: 800; color: #0a2a4a; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .logo a i, .logo a span { color: #0a2a4a; }
+        .nav-links { display: flex; align-items: center; gap: 3px; list-style: none; }
+        .nav-links li a { color: #0a2a4a; text-decoration: none; padding: 5px 12px; font-weight: 500; font-size: 0.8rem; border-radius: 6px; transition: all 0.3s; display: flex; align-items: center; gap: 4px; }
+        .nav-links li a:hover, .nav-links li a.active { background: rgba(255, 255, 255, 0.35); color: #003366; }
+        .nav-cart { position: relative; }
+        .cart-badge { background: #ff6b35; color: white; border-radius: 50%; padding: 1px 6px; font-size: 0.6rem; font-weight: 700; position: absolute; top: -4px; right: -6px; }
+        .dark-toggle-nav { display: flex; align-items: center; gap: 5px; margin-left: 8px; padding: 4px 10px; background: rgba(255, 255, 255, 0.25); border-radius: 50px; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.3s; }
+        .dark-toggle-nav:hover { background: rgba(255, 255, 255, 0.4); }
+        .dark-toggle-nav .toggle-icon { font-size: 0.9rem; }
+        .dark-toggle-nav .toggle-text { font-size: 0.65rem; font-weight: 500; color: #0a2a4a; }
+        .toggle-track { position: relative; width: 30px; height: 16px; background: rgba(255, 255, 255, 0.25); border-radius: 8px; transition: all 0.3s; flex-shrink: 0; cursor: pointer; }
+        .toggle-track.active { background: #ff6b35; }
+        .toggle-track .toggle-thumb { position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; background: white; border-radius: 50%; transition: all 0.3s; }
+        .toggle-track.active .toggle-thumb { transform: translateX(14px); }
+        .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; background: none; border: none; padding: 4px; }
+        .hamburger span { width: 22px; height: 2.5px; background: #0a2a4a; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+        .nav-user { position: relative; margin-left: 5px; }
+        .user-btn { background: none; border: none; cursor: pointer; padding: 4px 10px; border-radius: 50px; transition: all 0.3s; font-family: 'Poppins', sans-serif; }
+        .user-btn:hover { background: rgba(255, 255, 255, 0.3); }
+        .user-avatar-wrapper { display: flex; align-items: center; gap: 10px; color: #0a2a4a; }
+        .user-avatar-circle { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #022c6b, #0a4ca0); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; transition: all 0.3s; flex-shrink: 0; }
+        .user-btn:hover .user-avatar-circle { transform: scale(1.05); box-shadow: 0 4px 15px rgba(2,44,107,0.3); }
+        .user-avatar-wrapper .user-name { font-weight: 600; font-size: 0.9rem; color: #0a2a4a; }
+        .user-avatar-wrapper .dropdown-arrow { font-size: 0.7rem; color: #8899bb; transition: transform 0.3s; }
+        .user-btn.active .dropdown-arrow { transform: rotate(180deg); }
+        .dropdown-menu { position: absolute; top: 100%; right: 0; min-width: 280px; background: white; border-radius: 16px; box-shadow: 0 15px 50px rgba(11, 94, 215, 0.15); padding: 10px 0; margin-top: 12px; opacity: 0; visibility: hidden; transform: translateY(-10px) scale(0.95); transition: all 0.3s ease; z-index: 9999; border: 1px solid rgba(176, 208, 232, 0.3); }
+        .dropdown-menu.show { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+        .dropdown-header { padding: 14px 20px; display: flex; align-items: center; gap: 14px; background: linear-gradient(135deg, #dce8ff, #c8dcff); margin: 0 0 6px 0; border-radius: 12px 12px 0 0; }
+        .dropdown-avatar-circle { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, #022c6b, #0a4ca0); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; border: 3px solid rgba(255, 255, 255, 0.5); }
+        .dropdown-info h4 { font-size: 0.95rem; font-weight: 600; color: #022c6b; }
+        .dropdown-info p { font-size: 0.8rem; color: #6688aa; margin-top: 2px; }
+        .dropdown-divider { height: 1px; background: linear-gradient(to right, #b0d0e8, transparent); margin: 6px 16px; }
+        .dropdown-item { display: flex; align-items: center; gap: 12px; padding: 10px 20px; color: #1a2a4a; text-decoration: none; font-size: 0.88rem; transition: all 0.3s; cursor: pointer; margin: 2px 8px; border-radius: 10px; }
+        .dropdown-item:hover { background: linear-gradient(135deg, #dce8ff, #c8dcff); color: #022c6b; }
+        .dropdown-item i { width: 22px; color: #6688aa; font-size: 1rem; }
+        .dropdown-item:hover i { color: #022c6b; }
+        .dropdown-item.logout-item { color: #dc3545; margin-top: 4px; }
+        .dropdown-item.logout-item i { color: #dc3545; }
+        .dropdown-item.logout-item:hover { background: #fee; color: #dc3545; }
+        .dropdown-item.logout-item:hover i { color: #dc3545; }
+        .dropdown-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9998; }
+        .dropdown-overlay.show { display: block; }
+
+        .profile-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .card { background: white; padding: 35px; border-radius: 15px; box-shadow: 0 8px 30px rgba(0,0,0,0.08); transition: background 0.3s; margin-bottom: 25px; }
+        .card h2 { color: #022c6b; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; font-size: 1.5rem; }
+        .card h3 { color: #022c6b; font-size: 1.05rem; margin-bottom: 10px; }
+
+        .profile-header { display: flex; align-items: center; gap: 20px; }
+        .profile-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #022c6b, #0a4ca0); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 1.8rem; flex-shrink: 0; }
+        .profile-header-info h2 { margin-bottom: 4px; }
+        .profile-header-info p { color: #6688aa; font-size: 0.9rem; }
+
+        .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 18px; border: none; background: white; border-radius: 10px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 0.85rem; color: #1a2a4a; box-shadow: 0 2px 10px rgba(0,0,0,0.06); transition: all 0.3s; }
+        .tab-btn.active { background: #022c6b; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.88rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 11px 14px; border: 2px solid #dce8ff; border-radius: 8px; font-family: 'Poppins', sans-serif; font-size: 0.9rem; transition: border 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #022c6b; outline: none; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+
+        .btn-primary { background: #022c6b; color: white; border: none; padding: 12px 28px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: all 0.3s; }
+        .btn-primary:hover { background: #0a4ca0; }
+        .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-danger-outline { background: none; color: #dc3545; border: 2px solid #dc3545; padding: 8px 16px; border-radius: 8px; font-family: 'Poppins', sans-serif; font-weight: 600; cursor: pointer; font-size: 0.8rem; transition: all 0.3s; }
+        .btn-danger-outline:hover { background: #dc3545; color: white; }
+
+        .msg { padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 14px; display: none; }
+        .msg.error { background: #fde8e8; color: #dc3545; }
+        .msg.success { background: #e8f8ec; color: #28a745; }
+
+        .order-item { background: #f0f4ff; border-radius: 10px; padding: 16px; margin-bottom: 12px; transition: background 0.3s; }
+        .order-item-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+        .order-item-head strong { color: #022c6b; }
+        body.dark-mode .order-item-head strong { color: #6ea8fe; }
+        .order-status { padding: 3px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-processing { background: #cce5ff; color: #004085; }
+        .status-shipped { background: #d4edda; color: #155724; }
+        .status-delivered { background: #d1f7dd; color: #0f5132; }
+        .status-cancelled { background: #f8d7da; color: #721c24; }
+        .order-products { font-size: 0.85rem; color: #6688aa; margin-bottom: 8px; }
+        .order-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+        .empty-state { text-align: center; padding: 40px 20px; color: #8899bb; }
+        .empty-state i { font-size: 2.5rem; margin-bottom: 12px; display: block; }
+    </style>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="mainNavbar">
+    <div class="logo"><a href="index.html"><i class="fas fa-industry"></i> Tex<span>Pharm</span></a></div>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="services.html"><i class="fas fa-cogs"></i> Services</a></li>
+        <li><a href="product.html"><i class="fas fa-box"></i> Product</a></li>
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li class="nav-cart"><a href="checkout.html"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-badge" id="cartCount">0</span></a></li>
+
+        <li class="nav-user">
+            <div class="user-dropdown">
+                <button class="user-btn" onclick="toggleDropdown()">
+                    <div class="user-avatar-wrapper">
+                        <div class="user-avatar-circle" id="userAvatarCircle"><span id="userInitials">U</span></div>
+                        <span class="user-name" id="userNameDisplay">User</span>
+                        <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </div>
+                </button>
+                <div class="dropdown-menu" id="userDropdown">
+                    <div class="dropdown-header">
+                        <div class="dropdown-avatar-circle" id="dropdownAvatarCircle"><span id="dropdownInitials">U</span></div>
+                        <div class="dropdown-info"><h4 id="dropdownName">User</h4><p id="dropdownEmail">user@email.com</p></div>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <a href="profile.html" class="dropdown-item active"><i class="fas fa-user"></i> My Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#" class="dropdown-item logout-item" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </li>
+
+        <li>
+            <div class="dark-toggle-nav" onclick="toggleDarkMode()">
+                <span class="toggle-icon" id="toggleIcon">🌙</span>
+                <span class="toggle-text" id="toggleText">Dark</span>
+                <div class="toggle-track" id="toggleTrack"><div class="toggle-thumb"></div></div>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<div class="profile-container">
+
+    <!-- ===== PROFILE HEADER ===== -->
+    <div class="card profile-header">
+        <div class="profile-avatar" id="profileAvatar">U</div>
+        <div class="profile-header-info">
+            <h2 id="profileName">Loading...</h2>
+            <p id="profileEmail">&nbsp;</p>
+        </div>
+    </div>
+
+    <!-- ===== TABS ===== -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="details" onclick="switchTab('details')"><i class="fas fa-user-edit"></i> My Details</button>
+        <button class="tab-btn" data-tab="password" onclick="switchTab('password')"><i class="fas fa-lock"></i> Change Password</button>
+        <button class="tab-btn" data-tab="orders" onclick="switchTab('orders')"><i class="fas fa-box"></i> My Orders</button>
+    </div>
+
+    <!-- ===== MY DETAILS ===== -->
+    <div class="tab-content active" id="tab-details">
+        <div class="card">
+            <h2><i class="fas fa-user-edit"></i> Profile Details</h2>
+            <div class="msg" id="detailsMsg"></div>
+            <form id="detailsForm">
+                <div class="form-group"><label>Full Name</label><input type="text" id="fName" required></div>
+                <div class="form-group"><label>Email</label><input type="email" id="fEmail" disabled></div>
+                <div class="form-group"><label>Phone</label><input type="tel" id="fPhone" placeholder="e.g. +92 300 1234567"></div>
+                <div class="form-group"><label>Street Address</label><input type="text" id="fStreet"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>City</label><input type="text" id="fCity"></div>
+                    <div class="form-group"><label>State</label><input type="text" id="fState"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Country</label><input type="text" id="fCountry"></div>
+                    <div class="form-group"><label>ZIP Code</label><input type="text" id="fZip"></div>
+                </div>
+                <button type="submit" class="btn-primary" id="saveDetailsBtn"><i class="fas fa-save"></i> Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== CHANGE PASSWORD ===== -->
+    <div class="tab-content" id="tab-password">
+        <div class="card">
+            <h2><i class="fas fa-lock"></i> Change Password</h2>
+            <div class="msg" id="passwordMsg"></div>
+            <form id="passwordForm">
+                <div class="form-group"><label>Current Password</label><input type="password" id="currentPassword" required></div>
+                <div class="form-group"><label>New Password</label><input type="password" id="newPassword" minlength="8" required></div>
+                <div class="form-group"><label>Confirm New Password</label><input type="password" id="confirmPassword" minlength="8" required></div>
+                <button type="submit" class="btn-primary" id="savePasswordBtn"><i class="fas fa-key"></i> Update Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MY ORDERS ===== -->
+    <div class="tab-content" id="tab-orders">
+        <div class="card">
+            <h2><i class="fas fa-box"></i> My Orders</h2>
+            <div class="msg" id="ordersMsg"></div>
+            <div id="ordersList"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i>Loading orders...</div></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // ============================================
+    // CONFIG
+    // ============================================
+  const API_URL = 'https://bubbly-elegance-production-1dff.up.railway.app/api';
+
+    // ============================================
+    // AUTH GUARD
+    // ============================================
+    const token = localStorage.getItem('token');
+    let currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+    if (!token || !currentUser) {
+        window.location.href = 'index.html';
+    }
+
+    async function apiCall(endpoint, method = 'GET', body = null) {
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['Authorization'] = `Bearer ${token}`;
+        const res = await fetch(`${API_URL}${endpoint}`, {
+            method,
+            headers,
+            body: body ? JSON.stringify(body) : undefined
+        });
+        let data;
+        try { data = await res.json(); } catch { data = {}; }
+        if (res.status === 401) {
+            handleLogout();
+            throw new Error('Session expired. Please login again.');
+        }
+        if (!res.ok || data.success === false) throw new Error(data.message || 'Something went wrong');
+        return data;
+    }
+
+    // ============================================
+    // AVATAR / NAVBAR
+    // ============================================
+    function getUserInitials(name) {
+        if (!name) return 'U';
+        const parts = name.trim().split(' ');
+        if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        return name.substring(0, 2).toUpperCase();
+    }
+    function getAvatarColor(email) {
+        const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'];
+        let hash = 0;
+        for (let i = 0; i < (email || '').length; i++) hash = email.charCodeAt(i) + ((hash << 5) - hash);
+        return colors[Math.abs(hash) % colors.length];
+    }
+    function updateNavbarUser(user) {
+        if (!user) return;
+        const initials = getUserInitials(user.name);
+        const color = getAvatarColor(user.email);
+        document.getElementById('userAvatarCircle').style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+        document.getElementById('userInitials').textContent = initials;
+        document.getElementById('userNameDisplay').textContent = user.name;
+        document.getElementById('dropdownAvatarCircle').style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+        document.getElementById('dropdownInitials').textContent = initials;
+        document.getElementById('dropdownName').textContent = user.name;
+        document.getElementById('dropdownEmail').textContent = user.email;
+        document.getElementById('profileAvatar').textContent = initials;
+        document.getElementById('profileAvatar').style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
+        document.getElementById('profileName').textContent = user.name;
+        document.getElementById('profileEmail').textContent = user.email;
+    }
+
+    function updateCartBadge() {
+        const cartData = JSON.parse(localStorage.getItem('cart')) || [];
+        document.getElementById('cartCount').textContent = cartData.reduce((s, i) => s + i.quantity, 0);
+    }
+
+    // ============================================
+    // TABS
+    // ============================================
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll(`.tab-btn[data-tab="${tab}"]`).forEach(b => b.classList.add('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(`tab-${tab}`).classList.add('active');
+    }
+
+    function showMsg(id, text, type) {
+        const el = document.getElementById(id);
+        el.textContent = text;
+        el.className = `msg ${type}`;
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 4000);
+    }
+
+    // ============================================
+    // LOAD PROFILE
+    // ============================================
+    async function loadProfile() {
+        try {
+            const data = await apiCall('/auth/me');
+            currentUser = data.data;
+            localStorage.setItem('user', JSON.stringify(currentUser));
+            updateNavbarUser(currentUser);
+
+            document.getElementById('fName').value = currentUser.name || '';
+            document.getElementById('fEmail').value = currentUser.email || '';
+            document.getElementById('fPhone').value = currentUser.phone || '';
+            const addr = currentUser.address || {};
+            document.getElementById('fStreet').value = addr.street || '';
+            document.getElementById('fCity').value = addr.city || '';
+            document.getElementById('fState').value = addr.state || '';
+            document.getElementById('fCountry').value = addr.country || '';
+            document.getElementById('fZip').value = addr.zipCode || '';
+        } catch (err) {
+            console.error('Failed to load profile:', err);
+            updateNavbarUser(currentUser);
+        }
+    }
+
+    // ============================================
+    // SAVE PROFILE DETAILS
+    // ============================================
+    document.getElementById('detailsForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('saveDetailsBtn');
+        btn.disabled = true;
+        try {
+            const payload = {
+                name: document.getElementById('fName').value.trim(),
+                phone: document.getElementById('fPhone').value.trim(),
+                address: {
+                    street: document.getElementById('fStreet').value.trim(),
+                    city: document.getElementById('fCity').value.trim(),
+                    state: document.getElementById('fState').value.trim(),
+                    country: document.getElementById('fCountry').value.trim(),
+                    zipCode: document.getElementById('fZip').value.trim()
+                }
+            };
+            const data = await apiCall('/auth/profile', 'PUT', payload);
+            currentUser = data.data;
+            localStorage.setItem('user', JSON.stringify(currentUser));
+            updateNavbarUser(currentUser);
+            showMsg('detailsMsg', '✅ Profile updated successfully!', 'success');
+        } catch (err) {
+            showMsg('detailsMsg', '❌ ' + err.message, 'error');
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    // ============================================
+    // CHANGE PASSWORD
+    // ============================================
+    document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('savePasswordBtn');
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (newPassword !== confirmPassword) {
+            showMsg('passwordMsg', '❌ New passwords do not match.', 'error');
+            return;
+        }
+
+        btn.disabled = true;
+        try {
+            await apiCall('/auth/change-password', 'PUT', { currentPassword, newPassword });
+            showMsg('passwordMsg', '✅ Password updated successfully!', 'success');
+            document.getElementById('passwordForm').reset();
+        } catch (err) {
+            showMsg('passwordMsg', '❌ ' + err.message, 'error');
+        } finally {
+            btn.disabled = false;
+        }
+    });
+
+    // ============================================
+    // MY ORDERS
+    // ============================================
+    function statusClass(status) {
+        return `status-${(status || 'pending').toLowerCase()}`;
+    }
+
+    async function loadOrders() {
+        const list = document.getElementById('ordersList');
+        try {
+            const data = await apiCall('/orders/my-orders');
+            const orders = data.data || [];
+            if (orders.length === 0) {
+                list.innerHTML = '<div class="empty-state"><i class="fas fa-box-open"></i>You haven\'t placed any orders yet.</div>';
+                return;
+            }
+            list.innerHTML = orders.map(order => `
+                <div class="order-item">
+                    <div class="order-item-head">
+                        <strong>Order #${order._id.slice(-8).toUpperCase()}</strong>
+                        <span class="order-status ${statusClass(order.orderStatus)}">${order.orderStatus}</span>
+                    </div>
+                    <div class="order-products">
+                        ${order.items.map(i => `${i.name} x ${i.quantity}`).join(', ')}
+                    </div>
+                    <div class="order-footer">
+                        <span>Total: <strong>$${order.total.toFixed(2)}</strong> &nbsp;|&nbsp; ${new Date(order.createdAt).toLocaleDateString()}</span>
+                        ${(order.orderStatus === 'pending' || order.orderStatus === 'processing')
+                            ? `<button class="btn-danger-outline" onclick="cancelOrder('${order._id}')"><i class="fas fa-times"></i> Cancel Order</button>`
+                            : ''}
+                    </div>
+                </div>
+            `).join('');
+        } catch (err) {
+            list.innerHTML = `<div class="empty-state"><i class="fas fa-exclamation-triangle"></i>Could not load your orders.</div>`;
+            showMsg('ordersMsg', '❌ ' + err.message, 'error');
+        }
+    }
+
+    async function cancelOrder(id) {
+        if (!confirm('Are you sure you want to cancel this order?')) return;
+        try {
+            await apiCall(`/orders/${id}/cancel`, 'PUT');
+            showMsg('ordersMsg', '✅ Order cancelled.', 'success');
+            loadOrders();
+        } catch (err) {
+            showMsg('ordersMsg', '❌ ' + err.message, 'error');
+        }
+    }
+
+    // ============================================
+    // DARK MODE / NAV UI HELPERS
+    // ============================================
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const icon = document.getElementById('toggleIcon');
+        const text = document.getElementById('toggleText');
+        const track = document.getElementById('toggleTrack');
+        if (document.body.classList.contains('dark-mode')) {
+            icon.textContent = '☀️'; text.textContent = 'Light'; track.classList.add('active');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            icon.textContent = '🌙'; text.textContent = 'Dark'; track.classList.remove('active');
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    function toggleMobileMenu() {
+        document.getElementById('navLinks').classList.toggle('open');
+        document.getElementById('hamburgerBtn').classList.toggle('active');
+    }
+
+    function toggleDropdown() {
+        const dropdown = document.getElementById('userDropdown');
+        const btn = document.querySelector('.user-btn');
+        let overlay = document.getElementById('dropdownOverlay');
+        dropdown.classList.toggle('show');
+        btn.classList.toggle('active');
+        if (dropdown.classList.contains('show')) {
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'dropdownOverlay';
+                overlay.className = 'dropdown-overlay show';
+                overlay.onclick = closeDropdown;
+                document.body.appendChild(overlay);
+            } else overlay.classList.add('show');
+        } else if (overlay) overlay.classList.remove('show');
+    }
+
+    function closeDropdown() {
+        document.getElementById('userDropdown').classList.remove('show');
+        document.querySelector('.user-btn').classList.remove('active');
+        const overlay = document.getElementById('dropdownOverlay');
+        if (overlay) overlay.classList.remove('show');
+    }
+
+    function handleLogout() {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        window.location.href = 'index.html';
+    }
+
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('mainNavbar');
+        if (window.scrollY > 50) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+    });
+
+    // ============================================
+    // INIT
+    // ============================================
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('toggleIcon').textContent = '☀️';
+        document.getElementById('toggleText').textContent = 'Light';
+        document.getElementById('toggleTrack').classList.add('active');
+    }
+    updateCartBadge();
+    if (currentUser) {
+        updateNavbarUser(currentUser);
+        loadProfile();
+        loadOrders();
+    }
+</script>
+
+</body>
+</html>
