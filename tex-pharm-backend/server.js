@@ -25,8 +25,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Routes
-app.use('/api/auth', require('./src/routes/authRoutes'));
-
+const authRoutes = require('./src/routes/authRoutes');
+app.use('/api/auth', authRoutes);
 // Health Check
 app.get('/', (req, res) => res.send('Server is Running'));
 
