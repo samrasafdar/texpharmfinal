@@ -19,7 +19,12 @@ const connectDB = async () => {
 connectDB();
 
 // Middleware
-app.use(cors());
+// 👇 CORS FIX: SIRF VERCEL KO ALLOW KAREGA
+app.use(cors({
+    origin: 'https://texpharmfinal.vercel.app', 
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(cookieParser());
 
